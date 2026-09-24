@@ -1,0 +1,8 @@
+[functions.create-pending-order]
+verify_jwt = false
+
+[functions.verify-and-pay]
+verify_jwt = false
+
+[functions.send-order-email]
+verify_jwt = false
