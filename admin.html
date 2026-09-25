@@ -14,13 +14,17 @@
 
     body {
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       background: #050505;
       color: #f5f5f5;
       font-family: Arial, sans-serif;
       padding: 24px;
+    }
+
+    .page-wrap {
+      min-height: calc(100vh - 48px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .login-card {
@@ -30,6 +34,16 @@
       border: 1px solid #262626;
       border-radius: 16px;
       padding: 32px;
+    }
+
+    .dashboard-card {
+      width: 100%;
+      max-width: 900px;
+      background: #101010;
+      border: 1px solid #262626;
+      border-radius: 16px;
+      padding: 32px;
+      margin: auto;
     }
 
     .brand {
@@ -83,11 +97,12 @@
     }
 
     button:disabled {
-      opacity: .6;
+      opacity: 0.6;
       cursor: not-allowed;
     }
 
-    #message {
+    #message,
+    #ordersMessage {
       margin-top: 16px;
       font-size: 13px;
       line-height: 1.5;
@@ -100,116 +115,648 @@
     .success {
       color: #69db7c;
     }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .dashboard-header button {
+      width: auto;
+      padding: 11px 18px;
+      background: #222;
+      color: white;
+      border: 1px solid #333;
+    }
+
+    .dashboard-title {
+      margin-top: 24px;
+      margin-bottom: 8px;
+    }
+
+    .order-card {
+      border: 1px solid #262626;
+      padding: 18px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      background: #161616;
+    }
+
+    .order-ref {
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .order-customer {
+      margin-top: 10px;
+    }
+
+    .muted {
+      color: #999;
+      margin-top: 4px;
+    }
+
+    .order-total {
+      margin-top: 10px;
+      font-weight: 700;
+    }
+
+    .order-status {
+      margin-top: 7px;
+    }
+
+    #ordersContainer {
+      margin-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 14px;
+      }
+
+      .login-card,
+      .dashboard-card {
+        padding: 22px;
+      }
+
+      .dashboard-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .dashboard-header button {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 
 <body>
 
-  <div class="login-card">
-    <div class="brand">FANTIER<span class="accent">.</span></div>
-    <div class="subtitle">Administration</div>
+  <div class="page-wrap">
+    <div class="login-card" id="mainCard">
 
-    <form id="loginForm">
-      <label for="email">Email</label>
-      <input
-        id="email"
-        type="email"
-        autocomplete="username"
-        required
-      >
+      <div class="brand">
+        FANTIER<span class="accent">.</span>
+      </div>
 
-      <label for="password">Password</label>
-      <input
-        id="password"
-        type="password"
-        autocomplete="current-password"
-        required
-      >
+      <div class="subtitle">
+        Administration
+      </div>
 
-      <button id="loginButton" type="submit">
-        Sign In
-      </button>
+      <form id="loginForm">
 
-      <div id="message"></div>
-    </form>
+        <label for="email">Email</label>
+
+        <input
+          id="email"
+          type="email"
+          autocomplete="username"
+          required
+        >
+
+        <label for="password">Password</label>
+
+        <input
+          id="password"
+          type="password"
+          autocomplete="current-password"
+          required
+        >
+
+        <button id="loginButton" type="submit">
+          Sign In
+        </button>
+
+        <div id="message"></div>
+
+      </form>
+
+    </div>
   </div>
 
+
 <script>
-const SB_URL = "https://mbkanieqhxryeksalrti.supabase.co";
 
-/*
-  Use the SAME public anon key already used in
-  fantier-v5-clean-v4.html.
+const SB_URL =
+  "https://mbkanieqhxryeksalrti.supabase.co";
 
-  Never put SUPABASE_SERVICE_ROLE_KEY here.
-*/
-const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ia2FuaWVxaHhyeWVrc2FscnRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3NDAxNDksImV4cCI6MjA5ODMxNjE0OX0.p1-twI9aD5AGpmbKfU-EZ1FEexdAfEC-ViUApaPDWg4";
-const SB_HDR  = { "Content-Type":"application/json", "apikey": SB_KEY, "Authorization": "Bearer " + SB_KEY };
-const form = document.getElementById("loginForm");
-const button = document.getElementById("loginButton");
-const message = document.getElementById("message");
+const SB_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ia2FuaWVxaHhyeWVrc2FscnRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3NDAxNDksImV4cCI6MjA5ODMxNjE0OX0.p1-twI9aD5AGpmbKfU-EZ1FEexdAfEC-ViUApaPDWg4";
 
-form.addEventListener("submit", async (event) => {
-  event.preventDefault();
 
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
+const form =
+  document.getElementById("loginForm");
 
-  button.disabled = true;
-  button.textContent = "Signing in...";
-  message.textContent = "";
-  message.className = "";
+const button =
+  document.getElementById("loginButton");
+
+const message =
+  document.getElementById("message");
+
+
+/* ========================================
+   SHOW ADMIN DASHBOARD
+======================================== */
+
+function showDashboard() {
+
+  const sessionRaw =
+    sessionStorage.getItem("fantier_admin_session");
+
+  if (!sessionRaw) {
+    return;
+  }
+
+  const mainCard =
+    document.getElementById("mainCard");
+
+  mainCard.className = "dashboard-card";
+
+  mainCard.innerHTML = `
+
+    <div class="dashboard-header">
+
+      <div>
+        <div class="brand">
+          FANTIER<span class="accent">.</span>
+        </div>
+
+        <div class="subtitle" style="margin-bottom:0">
+          Administration
+        </div>
+      </div>
+
+      <button
+        id="logoutButton"
+        type="button"
+      >
+        Sign Out
+      </button>
+
+    </div>
+
+
+    <h2 class="dashboard-title">
+      Admin Dashboard
+    </h2>
+
+    <p style="color:#999;margin-bottom:24px">
+      Authentication successful.
+    </p>
+
+
+    <button
+      id="loadOrdersButton"
+      type="button"
+    >
+      Load Orders
+    </button>
+
+
+    <div id="ordersMessage"></div>
+
+    <div id="ordersContainer"></div>
+
+  `;
+
+
+  document
+    .getElementById("loadOrdersButton")
+    .addEventListener("click", loadOrders);
+
+
+  document
+    .getElementById("logoutButton")
+    .addEventListener("click", logoutAdmin);
+}
+
+
+/* ========================================
+   LOAD ORDERS
+======================================== */
+
+async function loadOrders() {
+
+  const ordersMessage =
+    document.getElementById("ordersMessage");
+
+  const ordersContainer =
+    document.getElementById("ordersContainer");
+
+  const loadButton =
+    document.getElementById("loadOrdersButton");
+
+
+  const sessionRaw =
+    sessionStorage.getItem("fantier_admin_session");
+
+
+  if (!sessionRaw) {
+
+    alert(
+      "Your admin session is missing. Please sign in again."
+    );
+
+    location.reload();
+
+    return;
+  }
+
+
+  let session;
 
   try {
+
+    session = JSON.parse(sessionRaw);
+
+  } catch {
+
+    sessionStorage.removeItem(
+      "fantier_admin_session"
+    );
+
+    location.reload();
+
+    return;
+  }
+
+
+  if (!session.access_token) {
+
+    sessionStorage.removeItem(
+      "fantier_admin_session"
+    );
+
+    location.reload();
+
+    return;
+  }
+
+
+  loadButton.disabled = true;
+  loadButton.textContent = "Loading...";
+
+  ordersMessage.textContent = "";
+  ordersMessage.className = "";
+
+  ordersContainer.innerHTML = "";
+
+
+  try {
+
     const response = await fetch(
-      `${SB_URL}/auth/v1/token?grant_type=password`,
+
+      `${SB_URL}/rest/v1/orders?select=*&order=created_at.desc`,
+
       {
-        method: "POST",
+        method: "GET",
+
         headers: {
-          "Content-Type": "application/json",
-          "apikey": SB_KEY
-        },
-        body: JSON.stringify({
-          email,
-          password
-        })
+
+          "apikey": SB_KEY,
+
+          "Authorization":
+            `Bearer ${session.access_token}`
+
+        }
       }
     );
 
+
     const data = await response.json();
 
-    if (!response.ok || !data.access_token) {
-      throw new Error(data.error_description || data.msg || "Unable to sign in.");
+
+    if (!response.ok) {
+
+      throw new Error(
+        data.message ||
+        data.msg ||
+        data.error ||
+        "Unable to load orders."
+      );
+
     }
 
-    /*
-      Temporary for tonight:
-      prove Supabase authentication works.
 
-      We are NOT building privileged order operations yet.
-    */
-    sessionStorage.setItem(
-      "fantier_admin_session",
-      JSON.stringify({
-        access_token: data.access_token,
-        refresh_token: data.refresh_token,
-        expires_at: Date.now() + (data.expires_in * 1000)
-      })
+    if (!Array.isArray(data)) {
+
+      throw new Error(
+        "Unexpected response from orders database."
+      );
+
+    }
+
+
+    ordersMessage.textContent =
+      `${data.length} order(s) loaded.`;
+
+    ordersMessage.className =
+      "success";
+
+
+    if (data.length === 0) {
+
+      ordersContainer.innerHTML =
+        `<p class="muted">No orders found.</p>`;
+
+      return;
+    }
+
+
+    ordersContainer.innerHTML =
+      data.map(order => `
+
+        <div class="order-card">
+
+          <div class="order-ref">
+            ${escapeHtml(
+              order.ref || "No reference"
+            )}
+          </div>
+
+
+          <div class="order-customer">
+            ${escapeHtml(
+              order.customer_name ||
+              "Unknown customer"
+            )}
+          </div>
+
+
+          <div class="muted">
+            ${escapeHtml(
+              order.phone || ""
+            )}
+          </div>
+
+
+          <div class="order-total">
+            ₦${Number(
+              order.total || 0
+            ).toLocaleString()}
+          </div>
+
+
+          <div class="order-status">
+
+            Status:
+
+            <strong>
+              ${escapeHtml(
+                order.status || "Unknown"
+              )}
+            </strong>
+
+          </div>
+
+
+          <div class="muted">
+
+            Payment:
+
+            ${escapeHtml(
+              order.payment_method ||
+              "Unknown"
+            )}
+
+          </div>
+
+        </div>
+
+      `).join("");
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Load orders error:",
+      error
     );
 
-    message.textContent = "Admin authentication successful.";
-    message.className = "success";
 
-  } catch (error) {
-    console.error(error);
-    message.textContent = error.message || "Unable to sign in.";
-    message.className = "error";
+    ordersMessage.textContent =
+      error.message ||
+      "Unable to load orders.";
 
-  } finally {
-    button.disabled = false;
-    button.textContent = "Sign In";
+
+    ordersMessage.className =
+      "error";
+
   }
-});
+
+  finally {
+
+    loadButton.disabled = false;
+
+    loadButton.textContent =
+      "Load Orders";
+
+  }
+
+}
+
+
+/* ========================================
+   ESCAPE DATABASE TEXT BEFORE HTML OUTPUT
+======================================== */
+
+function escapeHtml(value) {
+
+  return String(value)
+
+    .replaceAll("&", "&amp;")
+
+    .replaceAll("<", "&lt;")
+
+    .replaceAll(">", "&gt;")
+
+    .replaceAll('"', "&quot;")
+
+    .replaceAll("'", "&#039;");
+
+}
+
+
+/* ========================================
+   LOG OUT
+======================================== */
+
+function logoutAdmin() {
+
+  sessionStorage.removeItem(
+    "fantier_admin_session"
+  );
+
+  location.reload();
+
+}
+
+
+/* ========================================
+   LOGIN
+======================================== */
+
+form.addEventListener(
+  "submit",
+
+  async (event) => {
+
+    event.preventDefault();
+
+
+    const email =
+      document
+        .getElementById("email")
+        .value
+        .trim();
+
+
+    const password =
+      document
+        .getElementById("password")
+        .value;
+
+
+    button.disabled = true;
+
+    button.textContent =
+      "Signing in...";
+
+
+    message.textContent = "";
+
+    message.className = "";
+
+
+    try {
+
+      const response = await fetch(
+
+        `${SB_URL}/auth/v1/token?grant_type=password`,
+
+        {
+
+          method: "POST",
+
+          headers: {
+
+            "Content-Type":
+              "application/json",
+
+            "apikey":
+              SB_KEY
+
+          },
+
+          body: JSON.stringify({
+
+            email,
+
+            password
+
+          })
+
+        }
+
+      );
+
+
+      const data =
+        await response.json();
+
+
+      if (
+        !response.ok ||
+        !data.access_token
+      ) {
+
+        throw new Error(
+
+          data.error_description ||
+
+          data.msg ||
+
+          data.error ||
+
+          "Unable to sign in."
+
+        );
+
+      }
+
+
+      sessionStorage.setItem(
+
+        "fantier_admin_session",
+
+        JSON.stringify({
+
+          access_token:
+            data.access_token,
+
+          refresh_token:
+            data.refresh_token,
+
+          expires_at:
+            Date.now() +
+            (data.expires_in * 1000)
+
+        })
+
+      );
+
+
+      message.textContent =
+        "Admin authentication successful.";
+
+
+      message.className =
+        "success";
+
+
+      setTimeout(
+        showDashboard,
+        300
+      );
+
+    }
+
+    catch (error) {
+
+      console.error(
+        "Admin login error:",
+        error
+      );
+
+
+      message.textContent =
+        error.message ||
+        "Unable to sign in.";
+
+
+      message.className =
+        "error";
+
+    }
+
+    finally {
+
+      button.disabled = false;
+
+      button.textContent =
+        "Sign In";
+
+    }
+
+  }
+
+);
+
 </script>
 
 </body>
