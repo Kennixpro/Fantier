@@ -1,0 +1,10 @@
+warning: in the working copy of 'supabase/functions/confirm-bank-payment/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'supabase/functions/create-pending-order/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'supabase/functions/send-order-email/index.ts', LF will be replaced by CRLF the next time Git touches it
+ admin.html                                       | 207 [32m++++++[m[31m--[m
+ fantier-v5-clean-v4.html                         |   6 [32m+[m[31m-[m
+ jerseypro (34).html                              | 440 [32m+++++++++[m[31m-------[m
+ supabase/functions/confirm-bank-payment/index.ts |  59 [32m++[m[31m-[m
+ supabase/functions/create-pending-order/index.ts |  41 [32m+[m[31m-[m
+ supabase/functions/send-order-email/index.ts     | 632 [32m+++++++++++++++++++++[m[31m--[m
+ 6 files changed, 1094 insertions(+), 291 deletions(-)

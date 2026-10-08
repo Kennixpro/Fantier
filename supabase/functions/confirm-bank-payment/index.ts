@@ -200,10 +200,59 @@ if (!/^JP-[a-f0-9]{10}$/i.test(ref)) {
 
   const updated = await updateResponse.json();
 
-  return jsonResponse({
-    success: true,
+/*
+ * STEP 6:
+ * The payment is now confirmed server-side.
+ * Ask send-order-email to send the customer their payment receipt.
+ *
+ * Email failure must NOT undo the payment confirmation.
+ */
+let paymentEmailStatus = "not_sent";
+
+try {
+  const emailResponse = await fetch(
+    `${SB_URL}/functions/v1/send-order-email`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${SERVICE_ROLE_KEY}`,
+        apikey: SERVICE_ROLE_KEY,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ref,
+        type: "payment_confirmed",
+      }),
+    },
+  );
+
+  if (emailResponse.ok) {
+    paymentEmailStatus = "sent";
+  } else {
+    paymentEmailStatus = "failed";
+
+    console.error(
+      "Payment confirmed but payment email failed:",
+      ref,
+      emailResponse.status,
+      await emailResponse.text(),
+    );
+  }
+} catch (error) {
+  paymentEmailStatus = "failed";
+
+  console.error(
+    "Payment confirmed but payment email request failed:",
     ref,
-    status: "Paid",
-    order: Array.isArray(updated) ? updated[0] : updated,
-  });
+    error,
+  );
+}
+
+return jsonResponse({
+  success: true,
+  ref,
+  status: "Paid",
+  payment_email: paymentEmailStatus,
+  order: Array.isArray(updated) ? updated[0] : updated,
+});
 });

@@ -12,7 +12,7 @@
   <meta property="og:url" content="https://fantier.ng/">
   <meta property="og:title" content="Fantier — Premium Jerseys & Fan Gear">
   <meta property="og:description" content="Premium club, retro & kids jerseys. Fast nationwide delivery within 24–48hrs.">
-  <meta property="og:image" content="https://fantier.ng/fantier_logo.png">
+  <meta property="og:image" content="https://res.cloudinary.com/ysfcm3ow/image/upload/v1790324064/fantier.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@fantier_ng">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Store","name":"Fantier","url":"https://fantier.ng","description":"Premium sports jerseys and floated frames in Nigeria","telephone":"+2348185469068","sameAs":["https://www.instagram.com/fantier_ng/","https://www.tiktok.com/@fantier_ng","https://x.com/fantier_ng"]}</script>
@@ -745,7 +745,7 @@
 <header>
   <div class="nav">
     <div class="logo">
-        <img src="https://i.ibb.co/35W0RvZX/Untitled-1.png" alt="Fantier" style="height:42px;width:auto;display:block;">
+        <img src="https://res.cloudinary.com/ysfcm3ow/image/upload/v1790324064/fantier.png" alt="Fantier" style="height:42px;width:auto;display:block;">
       </div>
     <ul class="nav-links">
       <li><a href="#shop">Shop</a></li>
@@ -957,36 +957,28 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-grid">
-    <div>
-      <div class="footer-logo"><img src="https://i.ibb.co/35W0RvZX/Untitled-1.png" alt="Fantier" style="height:48px;width:auto;margin-bottom:.8rem"></div>
-      <p class="footer-desc">Premium football jerseys, retro kits, floated frames and fan gear delivered fast across Nigeria. Quality guaranteed on every order.</p>
-      <div class="footer-socials">
-        <a href="https://www.instagram.com/fantier_ng/" target="_blank" rel="noopener noreferrer" class="footer-soc"><i class="fab fa-instagram"></i> @fantier_ng</a>
-        <a href="https://www.tiktok.com/@fantier_ng" target="_blank" rel="noopener noreferrer" class="footer-soc"><i class="fab fa-tiktok"></i> @fantier_ng</a>
-        <a href="https://x.com/fantier_ng" target="_blank" rel="noopener noreferrer" class="footer-soc"><i class="fab fa-x-twitter"></i> @fantier_ng</a>
-      </div>
-    </div>
-    <div class="footer-col">
-      <h4>Quick Links</h4>
-      <a href="#shop">Shop All</a>
-      <a href="#" onclick="filterCategory('national',null);scrollToShop()">National Teams</a>
-      <a href="#" onclick="filterCategory('retro',null);scrollToShop()">Retro Kits</a>
-      <a href="#" onclick="filterCategory('kids',null);scrollToShop()">Kids Wear</a>
-      <a href="#" onclick="filterCategory('frame',null);scrollToShop()">Floated Frames</a>
-    </div>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <a href="tel:+2348185469068"><i class="fas fa-phone"></i> +234 818 546 9068</a>
-      <a href="https://wa.me/2348185469068" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
-      <a href="#why"><i class="fas fa-info-circle"></i> Why Fantier</a>
-      <a href="#reviews"><i class="fas fa-star"></i> Reviews</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2025 <b>Fantier</b> — Serving Nigeria Nationwide · All rights reserved</p>
-    <p>Made with <span style="color:var(--accent)">♥</span> for Nigerian football fans</p>
-  </div>
+ <div class="footer-socials">
+  <a href="https://www.instagram.com/fantier.ng?stkn=MXM2dnF1em51djVkYw%3D%3D&utm_source=qr"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="footer-soc">
+    <i class="fab fa-instagram"></i> Instagram
+  </a>
+
+  <a href="https://www.tiktok.com/@fantier.ng?_r=1&_t=ZS-9A1Snn30O9e"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="footer-soc">
+    <i class="fab fa-tiktok"></i> TikTok
+  </a>
+
+  <a href="https://x.com/fantier_ng?s=11"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="footer-soc">
+    <i class="fab fa-x-twitter"></i> X
+  </a>
+</div>
 </footer>
 
 <!-- FLOATING WA -->
@@ -1129,7 +1121,7 @@
 <!-- ADMIN PANEL -->
 <div id="adminPanel">
   <div class="admin-nav">
-    <div class="admin-logo"><img src="https://i.ibb.co/35W0RvZX/Untitled-1.png" alt="Fantier" style="height:32px;width:auto"> <span>Admin</span></div>
+    <div class="admin-logo"><img src="https://res.cloudinary.com/ysfcm3ow/image/upload/v1790324064/fantier.png" alt="Fantier" style="height:32px;width:auto"> <span>Admin</span></div>
     <div style="display:flex;gap:.8rem;align-items:center">
       <button class="btn btn-ghost btn-sm" onclick="closeAdminPanel()"><i class="fas fa-eye"></i> View Store</button>
       <button class="btn btn-danger btn-sm" onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> Logout</button>
@@ -1207,8 +1199,6 @@ const SIZES_DEF  = ["S","M","L","XL","XXL"];
 const CAT_LABELS = {all:"All",national:"National",club:"Club Kits",retro:"Retro",kids:"Kids",frame:"Frames"};
 const BADGE_COLORS = {Hot:"#e84242",New:"#2ecc71",Limited:"#9b59b6","Out of Stock":"#555",Sale:"#E8920A"};
 const JERSEY_CATS = ["national","club","retro","kids"];
-// Email sending is handled server-side via Supabase Edge Function
-const ADMIN_EMAIL = "abdulsalamkehindethaoban@gmail.com";
 
 /* ═══ SECURITY HELPERS ═══════════════════════════ */
 // Escape all user-supplied content before inserting into HTML
@@ -1654,30 +1644,11 @@ function onUpload(input) {
 
 /* ═══ ORDER TRACKING ═════════════════════════════ */
 async function saveOrder(orderData) {
-  try {
-    await sbFetch("orders", {
-      method: "POST",
-      body: JSON.stringify(orderData),
-      headers: { ...SB_HDR, "Prefer": "return=minimal" }
-    });
-  } catch(e) { console.error("Order save error:", e); }
-}
-
-async function sendEmail(to, subject, html) {
-  try {
-    const res = await fetch(`${SB_URL}/functions/v1/send-order-email`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + SB_KEY,
-        "apikey": SB_KEY
-      },
-      body: JSON.stringify({ to, subject, html })
-    });
-    const data = await res.json();
-    if (!res.ok) console.error("Email send failed:", data);
-    return data;
-  } catch(e) { console.error("Email error:", e); }
+  await sbFetch("orders", {
+    method: "POST",
+    body: JSON.stringify(orderData),
+    headers: { ...SB_HDR, "Prefer": "return=minimal" }
+  });
 }
 
 function buildItemsHTML(cartItems) {
@@ -1687,86 +1658,6 @@ function buildItemsHTML(cartItems) {
       <td style="padding:10px 0;border-bottom:1px solid #222;color:#A0A0A0;text-align:center">${i.size||"—"}</td>
       <td style="padding:10px 0;border-bottom:1px solid #222;color:#E8920A;text-align:right;font-weight:700">₦${Number(i.price).toLocaleString()}</td>
     </tr>`).join("");
-}
-
-function adminEmailHTML(order) {
-  return `
-  <div style="background:#050505;color:#F5F5F5;font-family:Inter,sans-serif;padding:32px;max-width:600px;margin:0 auto;border-radius:12px">
-    <div style="font-size:28px;font-weight:900;letter-spacing:2px;margin-bottom:4px">FANTIER</div>
-    <div style="font-size:12px;color:#666;margin-bottom:24px;text-transform:uppercase;letter-spacing:1px">New Order Notification</div>
-    <div style="background:#0F0F0F;border:1px solid #252525;border-radius:8px;padding:20px;margin-bottom:16px">
-      <div style="font-size:11px;color:#E8920A;text-transform:uppercase;letter-spacing:2px;margin-bottom:4px">Order Ref</div>
-      <div style="font-size:20px;font-weight:800">${order.ref}</div>
-    </div>
-    <table style="width:100%;margin-bottom:16px">
-      <thead><tr>
-        <th style="text-align:left;font-size:11px;color:#666;text-transform:uppercase;letter-spacing:1px;padding-bottom:8px">Item</th>
-        <th style="text-align:center;font-size:11px;color:#666;text-transform:uppercase;letter-spacing:1px;padding-bottom:8px">Size</th>
-        <th style="text-align:right;font-size:11px;color:#666;text-transform:uppercase;letter-spacing:1px;padding-bottom:8px">Price</th>
-      </tr></thead>
-      <tbody>${buildItemsHTML(order.items)}</tbody>
-    </table>
-    <div style="background:#0F0F0F;border:1px solid #252525;border-radius:8px;padding:16px;margin-bottom:16px">
-      <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:#666;font-size:13px">Subtotal</span><span style="font-size:13px">₦${Number(order.subtotal).toLocaleString()}</span></div>
-      <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:#666;font-size:13px">Delivery (${order.zone})</span><span style="font-size:13px">₦${Number(order.zone_fee).toLocaleString()}</span></div>
-      <div style="display:flex;justify-content:space-between;border-top:1px solid #252525;padding-top:10px;margin-top:6px"><span style="font-weight:800;font-size:15px">Total</span><span style="color:#E8920A;font-weight:800;font-size:18px">₦${Number(order.total).toLocaleString()}</span></div>
-    </div>
-    <div style="background:#0F0F0F;border:1px solid #252525;border-radius:8px;padding:16px;margin-bottom:16px">
-      <div style="font-size:11px;color:#666;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Customer</div>
-      <div style="font-size:13px;margin-bottom:4px"><b>Name:</b> ${order.customer_name||"—"}</div>
-      <div style="font-size:13px;margin-bottom:4px"><b>Phone:</b> ${order.phone}</div>
-      <div style="font-size:13px;margin-bottom:4px"><b>Address:</b> ${order.address}, ${order.city}</div>
-      <div style="font-size:13px"><b>Payment:</b> ${order.payment_method}</div>
-    </div>
-    ${order.receipt_url ? `<div style="margin-bottom:16px"><a href="${order.receipt_url}" style="background:#E8920A;color:#000;padding:12px 24px;border-radius:8px;font-weight:800;font-size:13px;text-decoration:none;display:inline-block">View Payment Receipt</a></div>` : ""}
-    <div style="font-size:11px;color:#444;margin-top:24px">Fantier · Lagos, Nigeria · +234 818 546 9068</div>
-  </div>`;
-}
-
-function customerEmailHTML(order) {
-  return `
-  <div style="background:#050505;color:#F5F5F5;font-family:Inter,sans-serif;padding:32px;max-width:600px;margin:0 auto;border-radius:12px">
-    <div style="font-size:28px;font-weight:900;letter-spacing:2px;margin-bottom:4px">FANTIER</div>
-    <div style="font-size:13px;color:#A0A0A0;margin-bottom:24px">Your order has been received. We'll confirm and dispatch within 24–48hrs.</div>
-    <div style="background:#0F0F0F;border:1px solid #252525;border-radius:8px;padding:20px;margin-bottom:16px">
-      <div style="font-size:11px;color:#E8920A;text-transform:uppercase;letter-spacing:2px;margin-bottom:4px">Order Ref</div>
-      <div style="font-size:22px;font-weight:800">${order.ref}</div>
-      <div style="font-size:12px;color:#666;margin-top:4px">Keep this for tracking</div>
-    </div>
-    <table style="width:100%;margin-bottom:16px">
-      <thead><tr>
-        <th style="text-align:left;font-size:11px;color:#666;text-transform:uppercase;letter-spacing:1px;padding-bottom:8px">Item</th>
-        <th style="text-align:center;font-size:11px;color:#666;text-transform:uppercase;letter-spacing:1px;padding-bottom:8px">Size</th>
-        <th style="text-align:right;font-size:11px;color:#666;text-transform:uppercase;letter-spacing:1px;padding-bottom:8px">Price</th>
-      </tr></thead>
-      <tbody>${buildItemsHTML(order.items)}</tbody>
-    </table>
-    <div style="background:#0F0F0F;border:1px solid #252525;border-radius:8px;padding:16px;margin-bottom:16px">
-      <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:#666;font-size:13px">Subtotal</span><span style="font-size:13px">₦${Number(order.subtotal).toLocaleString()}</span></div>
-      <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:#666;font-size:13px">Delivery</span><span style="font-size:13px">₦${Number(order.zone_fee).toLocaleString()}</span></div>
-      <div style="display:flex;justify-content:space-between;border-top:1px solid #252525;padding-top:10px;margin-top:6px"><span style="font-weight:800;font-size:15px">Total</span><span style="color:#E8920A;font-weight:800;font-size:18px">₦${Number(order.total).toLocaleString()}</span></div>
-    </div>
-    <div style="background:#0F0F0F;border:1px solid #252525;border-radius:8px;padding:16px;margin-bottom:24px">
-      <div style="font-size:11px;color:#666;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Delivery To</div>
-      <div style="font-size:13px">${order.address}, ${order.city}</div>
-      <div style="font-size:12px;color:#666;margin-top:4px">${order.zone}</div>
-    </div>
-    <div style="text-align:center;margin-bottom:24px">
-      <a href="https://wa.me/${PHONE}?text=Hi%20Fantier!%20I%20want%20to%20track%20my%20order%3A%20${order.ref}" style="background:#25D366;color:#fff;padding:13px 28px;border-radius:8px;font-weight:800;font-size:13px;text-decoration:none;display:inline-block"><i>📦</i> Track Order on WhatsApp</a>
-    </div>
-    <div style="font-size:11px;color:#444;text-align:center">Fantier · Lagos, Nigeria · +234 818 546 9068</div>
-  </div>`;
-}
-
-async function processOrder(orderData, custEmail) {
-  // 1. Save to Supabase
-  await saveOrder(orderData);
-  // 2. Notify admin
-  await sendEmail(ADMIN_EMAIL, `🛒 New Fantier Order — ${orderData.ref}`, adminEmailHTML(orderData));
-  // 3. Send receipt to customer (only if they gave an email)
-  if (custEmail && custEmail.includes("@") && !custEmail.includes("@fantier.ng")) {
-    await sendEmail(custEmail, `Your Fantier Order — ${orderData.ref}`, customerEmailHTML(orderData));
-  }
 }
 
 let _isSubmittingOrder = false;
@@ -1787,75 +1678,230 @@ async function submitOrder() {
   const email=document.getElementById("custEmail").value.trim();
   const addr=document.getElementById("custAddr").value.trim();
   const city=document.getElementById("custCity").value.trim();
-  const sub=getCartTotal();
-  const total=sub+selectedZoneFee;
-  const ref=generateRef();
-  const orderData = {
-    ref, customer_name:name, phone, address:addr, city,
-    zone:selectedZoneLabel, zone_fee:selectedZoneFee,
-    items:cart, subtotal:sub, total,
-    payment_method:"Bank Transfer",
-    receipt_url:uploadedReceiptUrl||null,
-    status:"Pending"
+
+  const checkoutData = {
+    items: buildCheckoutItems(),
+    zone: selectedZoneLabel,
+    customer_name: name,
+    phone,
+    email: email || null,
+    address: addr,
+    city,
+    payment_method: "Bank Transfer",
   };
-  const receiptLine = uploadedReceiptUrl ? `\n🧾 *Receipt:* ${uploadedReceiptUrl}` : `\n🧾 *Receipt:* Not uploaded — customer will send manually`;
-  const msg=`*New Fantier Order* 🛒\n\nRef: ${ref}\n${buildItemsText()}\n\n*Customer*\nName: ${name}\nPhone: ${phone}\nAddress: ${addr}, ${city}\nDelivery Zone: ${selectedZoneLabel} (₦${selectedZoneFee.toLocaleString()})\n\n*Subtotal: ₦${sub.toLocaleString()}*\n*Total (incl. delivery): ₦${total.toLocaleString()}*\nPayment: Bank Transfer${receiptLine}`;
-  document.getElementById("orderRef").textContent = ref;
-  document.getElementById("waLink").href = `https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`;
-  document.getElementById("checkoutForm").style.display = "none";
-  document.getElementById("successWrap").className = "success-wrap show";
+
   const cartSnapshot = [...cart];
-  cart=[]; saveCart(); updateCartUI();
-  uploadedReceiptUrl = null;
-  // Save + email in background
   try {
-    await processOrder({...orderData, items:cartSnapshot}, email);
-  } catch(e) { console.error("Order processing error:", e); }
-  finally {
+    const pendingOrder = await createPendingOrder(checkoutData);
+    const ref = pendingOrder.ref;
+    const total = pendingOrder.total;
+
+    try {
+      await fetch(`${SB_URL}/functions/v1/send-order-email`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ref }),
+      });
+    } catch(e) {
+      console.error("Order email error:", e);
+    }
+
+    const receiptLine = uploadedReceiptUrl ? `\n🧾 *Receipt:* ${uploadedReceiptUrl}` : `\n🧾 *Receipt:* Not uploaded — customer will send manually`;
+    const msg=`*New Fantier Order* 🛒\n\nRef: ${ref}\n${buildItemsText()}\n\n*Customer*\nName: ${name}\nPhone: ${phone}\nAddress: ${addr}, ${city}\nDelivery Zone: ${selectedZoneLabel} (₦${selectedZoneFee.toLocaleString()})\n\n*Total (incl. delivery): ₦${total.toLocaleString()}*\nPayment: Bank Transfer${receiptLine}`;
+
+    cart = [];
+    saveCart();
+    updateCartUI();
+    uploadedReceiptUrl = null;
+    document.getElementById("orderRef").textContent = ref;
+    document.getElementById("waLink").href = `https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`;
+    document.getElementById("checkoutForm").style.display = "none";
+    document.getElementById("successWrap").className = "success-wrap show";
+  } catch(e) {
+    console.error("Order creation error:", e);
+    toast("Order failed. Please try again or contact support.", "fa-exclamation-circle");
+  } finally {
     _isSubmittingOrder = false;
     const btn = document.querySelector(".co-submit");
     if (btn) { btn.disabled = false; btn.textContent = "Confirm Order"; }
   }
 }
 
-function payWithFlutterwave() {
-  if (!validate()) return;
-  const name=document.getElementById("custName").value.trim();
-  const phone=document.getElementById("custPhone").value.trim();
-  const email=document.getElementById("custEmail").value.trim();
-  const addr=document.getElementById("custAddr").value.trim();
-  const city=document.getElementById("custCity").value.trim();
-  const sub=getCartTotal();
-  const total=sub+selectedZoneFee;
-  const ref=generateRef();
-  if (typeof FlutterwaveCheckout === "undefined") { toast("Flutterwave not loaded. Use bank transfer.","fa-exclamation-circle"); return; }
-  FlutterwaveCheckout({
-    public_key: FLW_KEY,
-    tx_ref: ref, amount: total, currency: "NGN",
-    payment_options: "card,mobilemoney,ussd,bank_transfer",
-    customer: { email: email||phone+"@fantier.ng", phone_number: phone, name },
-    customizations: { title:"Fantier", description: cart.length===1?cart[0].name:`${cart.length} items`, logo:"https://fantier.ng/fantier_logo.png" },
-    callback: async function(response) {
-      if (response.status === "successful") {
-        const orderData = {
-          ref, customer_name:name, phone, address:addr, city,
-          zone:selectedZoneLabel, zone_fee:selectedZoneFee,
-          items:cart, subtotal:sub, total,
-          payment_method:"Flutterwave",
-          receipt_url:null, status:"Paid"
-        };
-        const msg=`*New Fantier Order (PAID ✅)* 🛒\n\nRef: ${ref}\n${buildItemsText()}\n\n*Customer*\nName: ${name}\nPhone: ${phone}\nAddress: ${addr}, ${city}\nDelivery Zone: ${selectedZoneLabel} (₦${selectedZoneFee.toLocaleString()})\n\n*Total Paid (incl. delivery): ₦${total.toLocaleString()}*\nPayment: Flutterwave ✅\nRef: ${ref}`;
-        document.getElementById("orderRef").textContent = ref;
-        document.getElementById("waLink").href = `https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`;
-        document.getElementById("checkoutForm").style.display = "none";
-        document.getElementById("successWrap").className = "success-wrap show";
-        const cartSnapshot = [...cart];
-        cart=[]; saveCart(); updateCartUI();
-        await processOrder({...orderData, items:cartSnapshot}, email);
-      }
-    },
-    onclose: function() {}
+function getFlutterwaveTransactionId(response) {
+  const candidates = [
+    response && response.transaction_id,
+    response && response.data && response.data.transaction_id,
+    response && response.data && response.data.id,
+    response && response.id,
+  ];
+  for (const candidate of candidates) {
+    if (candidate === null || candidate === undefined || candidate === "") continue;
+    const value = Number(candidate);
+    if (Number.isSafeInteger(value) && value > 0) return value;
+  }
+  return null;
+}
+
+function setFlutterwaveButtonState(button, busy, originalContent) {
+  if (!button) return;
+  button.disabled = busy;
+  button.innerHTML = busy
+    ? '<i class="fas fa-spinner fa-spin"></i> Processing…'
+    : originalContent;
+}
+
+function buildCheckoutItems() {
+  return cart.map(item => {
+    const checkoutItem = {
+      id: Number(item.id),
+      size: item.size,
+      customOn: item.customOn === true,
+    };
+    if (checkoutItem.customOn) {
+      checkoutItem.cName = String(item.cName || "").trim();
+      checkoutItem.cNum = String(item.cNum || "").trim();
+    }
+    return checkoutItem;
   });
+}
+
+async function createPendingOrder(checkoutData) {
+  const response = await fetch(`${SB_URL}/functions/v1/create-pending-order`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(checkoutData),
+  });
+  if (!response.ok) throw new Error("Unable to create payment order");
+  const data = await response.json();
+  const ref = typeof data?.ref === "string" ? data.ref.trim() : "";
+  const total = Number(data?.total);
+  if (
+    !data ||
+    data.created !== true ||
+    !ref ||
+    !Number.isFinite(total) ||
+    !Number.isInteger(total) ||
+    total <= 0 ||
+    data.currency !== "NGN"
+  ) {
+    throw new Error("Invalid payment order response");
+  }
+  return { ref, total, currency: data.currency };
+}
+
+async function verifyFlutterwavePayment(ref, transactionId) {
+  const response = await fetch(`${SB_URL}/functions/v1/verify-and-pay`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ref, transaction_id: transactionId }),
+  });
+  if (!response.ok) throw new Error("Unable to verify payment");
+  const data = await response.json();
+  if (
+    !data ||
+    data.verified !== true ||
+    data.status !== "Paid" ||
+    data.ref !== ref
+  ) {
+    throw new Error("Payment verification failed");
+  }
+}
+
+function payWithFlutterwave() {
+  if (_isSubmittingOrder) return;
+  if (!validate()) return;
+  if (typeof FlutterwaveCheckout === "undefined") {
+    toast("Flutterwave not loaded. Use bank transfer.", "fa-exclamation-circle");
+    return;
+  }
+
+  _isSubmittingOrder = true;
+  const button = document.querySelector(".flw-btn");
+  const originalContent = button ? button.innerHTML : "";
+  let attemptFinished = false;
+  let verificationInProgress = false;
+  const finishAttempt = () => {
+    if (verificationInProgress || attemptFinished) return;
+    attemptFinished = true;
+    _isSubmittingOrder = false;
+    setFlutterwaveButtonState(button, false, originalContent);
+  };
+
+  const name = document.getElementById("custName").value.trim();
+  const phone = document.getElementById("custPhone").value.trim();
+  const email = document.getElementById("custEmail").value.trim();
+  const addr = document.getElementById("custAddr").value.trim();
+  const city = document.getElementById("custCity").value.trim();
+  const checkoutData = {
+    items: buildCheckoutItems(),
+    zone: selectedZoneLabel,
+    customer_name: name,
+    phone,
+    email: email || null,
+    address: addr,
+    city,
+  };
+
+  setFlutterwaveButtonState(button, true, originalContent);
+
+  (async () => {
+    try {
+      const pendingOrder = await createPendingOrder(checkoutData);
+      FlutterwaveCheckout({
+        public_key: FLW_KEY,
+        tx_ref: pendingOrder.ref,
+        amount: pendingOrder.total,
+        currency: pendingOrder.currency,
+        payment_options: "card,mobilemoney,ussd,bank_transfer",
+        customer: {
+          email: email || `${phone}@fantier.ng`,
+          phone_number: phone,
+          name,
+        },
+        customizations: {
+          title: "Fantier",
+          description: cart.length === 1 ? cart[0].name : `${cart.length} items`,
+          logo: "https://res.cloudinary.com/ysfcm3ow/image/upload/v1790324064/fantier.png",
+        },
+        callback: async function(response) {
+          if (attemptFinished || verificationInProgress) return;
+          verificationInProgress = true;
+          try {
+            const transactionId = getFlutterwaveTransactionId(response);
+            if (!transactionId) {
+              toast("Payment completed, but Flutterwave did not return a transaction ID. Please contact support.", "fa-exclamation-circle");
+              return;
+            }
+            await verifyFlutterwavePayment(pendingOrder.ref, transactionId);
+            const msg = `*New Fantier Order (PAID ✅)* 🛒\n\nRef: ${pendingOrder.ref}\n${buildItemsText()}\n\n*Customer*\nName: ${name}\nPhone: ${phone}\nAddress: ${addr}, ${city}\nDelivery Zone: ${selectedZoneLabel} (₦${selectedZoneFee.toLocaleString()})\n\n*Total Paid (incl. delivery): ₦${pendingOrder.total.toLocaleString()}*\nPayment: Flutterwave ✅\nRef: ${pendingOrder.ref}`;
+            cart = [];
+            saveCart();
+            updateCartUI();
+            uploadedReceiptUrl = null;
+            document.getElementById("orderRef").textContent = pendingOrder.ref;
+            document.getElementById("waLink").href = `https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`;
+            document.getElementById("checkoutForm").style.display = "none";
+            document.getElementById("successWrap").className = "success-wrap show";
+          } catch(e) {
+            console.error("Flutterwave payment verification error:", e);
+            toast("Payment could not yet be verified. Please contact support or try again.", "fa-exclamation-circle");
+          } finally {
+            verificationInProgress = false;
+            finishAttempt();
+          }
+        },
+        onclose: function() {
+          if (verificationInProgress || attemptFinished) return;
+          toast("Payment was closed. Your cart is still intact and you can try again.", "fa-exclamation-circle");
+          finishAttempt();
+        },
+      });
+    } catch(e) {
+      console.error("Payment order creation error:", e);
+      toast("Could not prepare your payment. Your cart is still intact.", "fa-exclamation-circle");
+      finishAttempt();
+    }
+  })();
 }
 function copyAcc() {
   navigator.clipboard.writeText(BANK_ACC).then(() => {

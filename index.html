@@ -196,7 +196,7 @@
     .nav-actions { display:flex; align-items:center; gap:1rem; }
     .search-wrap { position:relative; display:flex; align-items:center; }
     #searchInput { background:var(--surface); border:1px solid var(--border); color:var(--text); padding:9px 16px 9px 38px; border-radius:50px; font-size:.85rem; width:220px; transition:all var(--t); outline:none; }
-    #searchInput:focus { border-color:var(--accent); width:280px; }
+    #searchInput:focus { border-color:var(--accent); width:220px; }
     .search-wrap i { position:absolute; left:13px; color:var(--muted); font-size:.85rem; pointer-events:none; }
     .icon-btn { background:transparent; border:none; cursor:pointer; color:var(--text); font-size:1.4rem; position:relative; padding:6px; transition:color var(--t); }
     .icon-btn:hover { color:var(--accent); }
@@ -382,7 +382,7 @@
     .modal-actions .btn { flex:1; justify-content:center; font-size:.88rem; padding:12px 16px; }
 
     /* ── CART DRAWER ──────────────────────── */
-    #cartDrawer { position:fixed; top:0; right:-480px; width:440px; height:100vh; background:var(--card); border-left:1px solid var(--border); z-index:850; display:flex; flex-direction:column; transition:right .4s cubic-bezier(.25,.46,.45,.94); }
+    #cartDrawer { position:fixed; top:0; right:-480px; width:440px; height:100vh; height:100dvh; background:var(--card); border-left:1px solid var(--border); z-index:850; display:flex; flex-direction:column; transition:right .4s cubic-bezier(.25,.46,.45,.94); }
     #cartDrawer.open { right:0; }
     .drawer-head { display:flex; align-items:center; justify-content:space-between; padding:1.5rem 1.5rem 1rem; border-bottom:1px solid var(--border); }
     .drawer-head h3 { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:1px; }
@@ -550,7 +550,7 @@
       .drawer-head { padding:1rem .9rem .7rem; }
       #cartItems { padding:.7rem .9rem; }
       .cart-footer { padding:.9rem; }
-      #productModal { top:auto !important; bottom:0 !important; left:0 !important; right:0 !important; transform:translateY(100%) !important; width:100% !important; max-height:88vh; border-radius:20px 20px 0 0; }
+      #productModal { top:auto !important; bottom:0 !important; left:0 !important; right:0 !important; margin-inline:auto !important; transform:translateY(100%) !important; width:100% !important; max-height:88vh; border-radius:20px 20px 0 0; }
       #productModal.active { transform:translateY(0) !important; }
       #checkoutModal { top:auto !important; bottom:0 !important; left:0 !important; right:0 !important; transform:translateY(100%) !important; width:100% !important; max-height:92vh; border-radius:20px 20px 0 0; padding:1rem; }
       #checkoutModal.active { transform:translateY(0) !important; }
@@ -586,7 +586,6 @@
   object-fit: contain;
   display: block;
   margin: 0 0 35px 0;
-}
 }
   .fv5-brand {
   display: flex;
@@ -643,9 +642,6 @@ h1,h2,h3,.section-title,.hero-title,.logo{font-family:"Anton SC","Bebas Neue",sa
   animation:ticker 40s linear infinite;
 }
 
-.fv5-ticker-track span::after{
-  content:" ✦ ";
-}
 
 @keyframes ticker{
   0%{transform:translateX(0)}
@@ -745,6 +741,7 @@ h1,h2,h3,.section-title,.hero-title,.logo{font-family:"Anton SC","Bebas Neue",sa
 .fv5-hero p{font-size:clamp(15px,1.6vw,22px);max-width:610px;line-height:1.25;margin-bottom:26px}
 .fv5-cta-row{display:flex;gap:10px;flex-wrap:wrap}.fv5-cta{display:inline-flex;padding:14px 18px;border:1px solid #fff;font:500 10px/1 "Geist Mono",monospace;text-transform:uppercase}
 .fv5-cta.primary{background:#fff;color:#111}
+.hero-d{display:inline}.hero-m{display:none}
 .fv5-cat-wrap,.fv5-highlight,.fv5-story,.fv5-gallery-intro{padding:90px var(--f-pad)}
 .fv5-gallery-intro{padding:36px var(--f-pad) 90px}
 .fv5-gallery-intro .fv5-section-head{margin-bottom:20px}
@@ -777,7 +774,7 @@ h1,h2,h3,.section-title,.hero-title,.logo{font-family:"Anton SC","Bebas Neue",sa
 .fv5-wa{position:fixed;right:18px;bottom:18px;z-index:2500;background:#25D366;color:#081c0f;padding:14px 17px;border-radius:999px;box-shadow:0 10px 30px #0003;font:700 10px/1 "Geist Mono",monospace;text-transform:uppercase}
 #shop{padding-top:30px!important}.shop-section .section-inner{max-width:none!important;padding-left:var(--f-pad)!important;padding-right:var(--f-pad)!important}
 .product-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important}
-.product-card{border-radius:0!important;background:transparent!important;border:0!important}.card-img-wrap{border-radius:0!important;aspect-ratio:4/5!important;background:#e4e2dc!important}.card-img-wrap img{width:100%;height:100%;object-fit:cover}
+.product-card{border-radius:0!important;background:transparent!important;border:0!important}.card-img-wrap{border-radius:0!important;aspect-ratio:4/5!important;background:#e4e2dc!important}.card-img-wrap img{width:100%;height:100%;object-fit:cover;padding:0}
 .product-info{padding:12px 12px 14px!important}.product-info h3{font-family:"Geist",sans-serif!important;font-size:14px!important;font-weight:600!important;letter-spacing:-.02em!important}.price{font-family:"Geist Mono",monospace!important;font-size:12px!important}
 .filters{gap:6px!important}.filter-btn{border-radius:999px!important}
 .why-section,.reviews-section{border-top:1px solid var(--f-line)}
@@ -787,19 +784,27 @@ h1,h2,h3,.section-title,.hero-title,.logo{font-family:"Anton SC","Bebas Neue",sa
   .fv5-gallery-strip>div{flex:0 0 var(--gallery-card-width,clamp(150px,20vw,200px));margin:0 -8px}
 }
 @media(max-width:620px){
- .fv5-announcement span:last-child{display:none}.fv5-header{height:62px}.fv5-actions .hide-mobile{display:none}
- .fv5-hero{min-height:72vh}.fv5-hero h1{font-size:clamp(66px,23vw,110px)}
- .fv5-cat-wrap,.fv5-highlight,.fv5-gallery-intro{padding:64px var(--f-pad)}
+ .fv5-announcement{font-size:7px;line-height:1.2;letter-spacing:-.04em}
+ .fv5-header{height:62px}.fv5-actions .hide-mobile{display:none}
+  .fv5-hero{min-height:72vh}.fv5-hero h1{font-size:clamp(50px,13.5vw,58px)!important;line-height:1!important}
+  .hero-d{display:none}.hero-m{display:inline}
+  .fv5-cat-wrap,.fv5-highlight,.fv5-gallery-intro{padding:64px var(--f-pad)}
+  .fv5-gallery-intro{padding-top:20px}
+  .fv5-section-head{flex-direction:column;align-items:flex-start;gap:12px}
  .fv5-categories{grid-template-columns:1fr}.fv5-category:first-child{grid-column:auto}.fv5-category{min-height:410px}
  .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
- .fv5-story{margin:64px var(--f-pad)}.fv5-story .proof{grid-template-columns:1fr}
+   .fv5-story{margin:20px var(--f-pad)}.fv5-story .proof{grid-template-columns:1fr}
+   .why-section{padding-bottom:12px}
   .fv5-gallery-strip{overflow-x:auto;overflow-y:hidden;display:flex;justify-content:flex-start;gap:10px;height:auto;scroll-snap-type:x mandatory;padding-bottom:10px;-webkit-overflow-scrolling:touch}
   .fv5-gallery-strip::-webkit-scrollbar{display:none}
   .fv5-gallery-strip{scrollbar-width:none}
   .fv5-gallery-strip>div{flex:0 0 82vw;aspect-ratio:4/5;margin:0;rotate:none!important;translate:none!important;scale:1!important;z-index:1;scroll-snap-align:center}
-  .fv5-gallery-strip>div:hover{rotate:none!important;translate:none!important;scale:1.02!important;z-index:2!important}
-  .fv5-wa{right:12px;bottom:12px}
-  }
+   .fv5-gallery-strip>div:hover{rotate:none!important;translate:none!important;scale:1.02!important;z-index:2!important}
+   .fv5-wa{right:12px;bottom:12px}
+   .footer-grid{grid-template-columns:1fr 1fr}
+   .footer-brand{grid-column:1/-1}
+   .footer-col:last-child{grid-column:1/-1}
+   }
   /* ═══ BEFORE YOU ORDER ════════════════════ */
   #why{padding:1.5rem 0}
   #why .section-header{margin-bottom:1.5rem}
@@ -845,7 +850,7 @@ h1,h2,h3,.section-title,.hero-title,.logo{font-family:"Anton SC","Bebas Neue",sa
 .fv5-search input{border:0;outline:0;background:transparent;width:160px;font:500 10px/1.2 "Geist Mono",monospace;text-transform:uppercase;color:inherit}
 .fv5-search input::placeholder{color:#777}
 #cartCount{display:inline-flex;min-width:16px;height:16px;align-items:center;justify-content:center;border:1px solid currentColor;border-radius:50%;font-size:8px;margin-left:4px}
-@media(max-width:760px){.fv5-search{display:none}}
+@media(max-width:1000px){.fv5-search{display:none}}
 </style>
 <style id="fantier-v5-wa-icon">
 .fv5-wa.fv5-wa-icon{width:54px!important;height:54px!important;padding:0!important;display:flex!important;align-items:center!important;justify-content:center!important;border-radius:50%!important;background:#25D366!important;color:#fff!important;font-size:0!important}
@@ -997,7 +1002,7 @@ h1,h2,h3,.section-title,.hero-title,.logo{font-family:"Anton SC","Bebas Neue",sa
   height:auto!important;
   display:flex!important;
   flex-direction:column!important;
-  justify-content:space-between!important;
+  justify-content:flex-start;gap:10px
   overflow:hidden!important;
 }
 .fv5-story .proof span{
@@ -1009,7 +1014,7 @@ h1,h2,h3,.section-title,.hero-title,.logo{font-family:"Anton SC","Bebas Neue",sa
   font-family:"Anton SC","Bebas Neue",sans-serif!important;
   font-size:clamp(25px,2.2vw,38px)!important;
   font-weight:400!important;
-  line-height:.95!important;
+  line-height:.1.1!!important;
   letter-spacing:-.02em!important;
   text-transform:uppercase!important;
   white-space:normal!important;
@@ -1036,8 +1041,9 @@ h1,h2,h3,.section-title,.hero-title,.logo{font-family:"Anton SC","Bebas Neue",sa
 <div class="fv5-announcement">
   <div class="fv5-ticker">
     <div class="fv5-ticker-track">
-      <span>FANTIER ✦ WHERE REAL FANS LEVEL UP ✦ NATIONWIDE DELIVERY ✦ ORDERS DISPATCHED IN 24–48HRS ✦ RETURNS & REFUNDS AVAILABLE ✦</span>
-      <span>FANTIER ✦ WHERE REAL FANS LEVEL UP ✦ NATIONWIDE DELIVERY ✦ ORDERS DISPATCHED IN 24–48HRS ✦ RETURNS & REFUNDS AVAILABLE ✦</span>
+     <span>FANTIER ✦ WHERE REAL FANS LEVEL UP ✦ NATIONWIDE DELIVERY ✦ ORDERS DISPATCHED IN 24–48HRS ✦ RETURNS & REFUNDS AVAILABLE ✦ </span> 
+     <span>FANTIER ✦ WHERE REAL FANS LEVEL UP ✦ NATIONWIDE DELIVERY ✦ ORDERS DISPATCHED IN 24–48HRS ✦ RETURNS & REFUNDS AVAILABLE ✦ </span>
+
     </div>
   </div>
 </div>
@@ -1082,7 +1088,7 @@ h1,h2,h3,.section-title,.hero-title,.logo{font-family:"Anton SC","Bebas Neue",sa
   <div class="fv5-hero-inner">
     <div class="fv5-kicker">Jerseys · Moment Frames · Fan Essentials</div>
     <h1>WHERE REAL FANS<br>LEVEL UP.</h1>
-    <p>Premium football jerseys and fan pieces made for fans who live every goal, every shirt and every unforgettable moment.</p>
+    <p><span class="hero-d">Premium football jerseys and fan pieces made for fans who live every goal, every shirt and every unforgettable moment.</span><span class="hero-m">Jerseys, fan essentials &amp; football moments worth keeping.</span></p>
     <div class="fv5-cta-row">
       <a class="fv5-cta primary" href="#shop">Shop jerseys →</a>
       <a class="fv5-cta" href="#moment-frames">Explore moment frames →</a>
@@ -1264,11 +1270,6 @@ h1,h2,h3,.section-title,.hero-title,.logo{font-family:"Anton SC","Bebas Neue",sa
         <h2 class="section-title">What Fans Are Saying</h2>
         <p class="section-desc">Real reviews from real customers on Google.</p>
       </div>
-      <div class="reviews-score">
-         <div class="reviews-score-num">5.0</div>
-         <div class="reviews-stars">★★★★★</div>
-         <div class="reviews-score-meta">Based on 4 Google reviews</div>
-      </div>
     </div>
     <div class="reviews-grid reveal-stagger">
       <article class="review-card">
@@ -1317,14 +1318,6 @@ h1,h2,h3,.section-title,.hero-title,.logo{font-family:"Anton SC","Bebas Neue",sa
         <a href="https://wa.me/2348185469068?text=Hi%20Fantier%2C%20I%20need%20help%20with%20an%20order." class="contact-wa-btn" target="_blank" rel="noopener noreferrer">
           <i class="fab fa-whatsapp"></i> Chat on WhatsApp →
         </a>
-      </article>
-      <article class="contact-card" data-contact-step="02">
-        <span class="contact-number">02</span>
-        <p class="contact-label">NEED HELP?</p>
-        <h3 class="contact-title">NEED HELP CHOOSING?</h3>
-        <p class="contact-text">Whether it's your size, jersey choice, customization or delivery, send us a message and we'll help you sort it out.</p>
-        <a href="https://wa.me/2348185469068?text=Hi%20Fantier%2C%20I%20need%20some%20help%20before%20placing%20my%20order." class="contact-text-cta" target="_blank" rel="noopener noreferrer">START A CONVERSATION →</a>
-        <p class="contact-note">WhatsApp Support • Lagos, Nigeria</p>
       </article>
     </div>
   </div>

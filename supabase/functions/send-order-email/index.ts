@@ -113,42 +113,503 @@ function adminEmailHtml(order: Record<string, unknown>): string {
 
 function customerEmailHtml(order: Record<string, unknown>): string {
   const items = (order.items as Array<Record<string, unknown>>) || [];
+
   const itemsHtml = items.map((item) => {
-    const name = item.name || "";
+    const name = item.name || "Item";
     const size = item.size || "One Size";
-    return `<li>${escapeHtml(String(name))} (${escapeHtml(String(size))})</li>`;
+    const price = item.price || 0;
+    const customOn = item.customOn === true;
+    const cName = item.cName || "";
+    const cNum = item.cNum || "";
+
+    const customDetail = customOn
+      ? `
+        <div style="color:#A0A0A0;font-size:13px;margin-top:4px">
+          Customisation:
+          ${escapeHtml(String(cName))}
+          ${cNum ? `#${escapeHtml(String(cNum))}` : ""}
+        </div>
+      `
+      : "";
+
+    return `
+      <tr>
+        <td style="padding:12px 8px;border-bottom:1px solid #222">
+          <strong>${escapeHtml(String(name))}</strong>
+          ${customDetail}
+        </td>
+
+        <td style="
+          padding:12px 8px;
+          border-bottom:1px solid #222;
+          color:#A0A0A0;
+          text-align:center
+        ">
+          ${escapeHtml(String(size))}
+        </td>
+
+        <td style="
+          padding:12px 8px;
+          border-bottom:1px solid #222;
+          color:#E8920A;
+          text-align:right;
+          font-weight:700
+        ">
+          ${formatNgn(price)}
+        </td>
+      </tr>
+    `;
   }).join("");
 
   let paymentNote = "";
+
   if (order.payment_method === "Bank Transfer") {
-    paymentNote = `<div style="background:#1a1a1a;border-left:3px solid #E8920A;padding:12px;margin:16px 0;font-size:14px">
-      <strong>Payment Status: Pending</strong><br>
-      Your order has been received but payment has not been confirmed yet. Bank Transfer payments are verified manually. Uploading a receipt does not automatically confirm payment. We will check your transfer and update your order status once confirmed.
-    </div>`;
+    paymentNote = `
+      <div style="
+        background:#1a1a1a;
+        border-left:3px solid #E8920A;
+        padding:14px;
+        margin:20px 0;
+        font-size:14px;
+        line-height:1.6
+      ">
+        <strong>Payment Status: Awaiting Confirmation</strong><br>
+        Your order has been received. Bank transfer payments are
+        verified manually. We will send you another email once your
+        payment has been confirmed.
+      </div>
+    `;
   }
 
   const receiptHtml = order.receipt_url
-    ? `<p><strong>Receipt:</strong> <a href="${escapeHtml(String(order.receipt_url))}" style="color:#E8920A">View receipt</a></p>`
+    ? `
+      <p style="margin:16px 0">
+        <strong>Receipt:</strong>
+        <a
+          href="${escapeHtml(String(order.receipt_url))}"
+          style="color:#E8920A"
+        >
+          View receipt
+        </a>
+      </p>
+    `
     : "";
 
   return `
-    <div style="background:#050505;color:#F5F5F5;font-family:Inter,sans-serif;padding:32px;max-width:600px;margin:0 auto;border-radius:12px">
-      <div style="font-size:28px;font-weight:900;letter-spacing:2px;margin-bottom:24px">FANTIER</div>
-      <h2 style="margin-bottom:16px">Your Order Confirmed</h2>
-      <p>Thank you for your order. Ref: <strong>${escapeHtml(String(order.ref))}</strong></p>
-      <h3 style="margin-bottom:8px">Items</h3>
-      <ul style="margin-bottom:16px">${itemsHtml}</ul>
-      <table style="width:100%;margin-bottom:16px">
-        <tr><td style="padding:4px 0;color:#999">Total</td><td style="padding:4px 0;text-align:right;font-weight:700">${formatNgn(order.total)}</td></tr>
-        <tr><td style="padding:4px 0;color:#999">Payment Method</td><td style="padding:4px 0">${escapeHtml(String(order.payment_method || ""))}</td></tr>
+    <div style="
+      background:#050505;
+      color:#F5F5F5;
+      font-family:Arial,sans-serif;
+      padding:32px;
+      max-width:600px;
+      margin:0 auto;
+      border-radius:12px
+    ">
+
+      <div style="
+        font-size:28px;
+        font-weight:900;
+        letter-spacing:2px;
+        margin-bottom:24px
+      ">
+        FANTIER<span style="color:#E8920A">.</span>
+      </div>
+
+      <h2 style="margin-bottom:10px">
+        We've Received Your Order
+      </h2>
+
+      <p style="color:#A0A0A0;line-height:1.6">
+        Hi ${escapeHtml(String(order.customer_name || "there"))},
+        thank you for shopping with Fantier.
+      </p>
+
+      <p style="margin:18px 0">
+        Order Reference:
+        <strong style="color:#E8920A">
+          ${escapeHtml(String(order.ref || ""))}
+        </strong>
+      </p>
+
+      <h3 style="margin:24px 0 10px">
+        Order Summary
+      </h3>
+
+      <table style="
+        width:100%;
+        border-collapse:collapse;
+        margin-bottom:20px
+      ">
+        <thead>
+          <tr>
+            <th style="
+              text-align:left;
+              padding:8px;
+              color:#999
+            ">
+              Item
+            </th>
+
+            <th style="
+              text-align:center;
+              padding:8px;
+              color:#999
+            ">
+              Size
+            </th>
+
+            <th style="
+              text-align:right;
+              padding:8px;
+              color:#999
+            ">
+              Price
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          ${itemsHtml}
+        </tbody>
       </table>
+
+      <table style="
+        width:100%;
+        margin-bottom:20px
+      ">
+        <tr>
+          <td style="padding:5px 0;color:#999">
+            Subtotal
+          </td>
+
+          <td style="padding:5px 0;text-align:right">
+            ${formatNgn(order.subtotal)}
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:5px 0;color:#999">
+            Delivery
+          </td>
+
+          <td style="padding:5px 0;text-align:right">
+            Calculated separately
+          </td>
+        </tr>
+
+        <tr>
+          <td style="
+            padding:12px 0;
+            font-size:17px;
+            font-weight:700
+          ">
+            Total
+          </td>
+
+          <td style="
+            padding:12px 0;
+            text-align:right;
+            color:#E8920A;
+            font-size:17px;
+            font-weight:700
+          ">
+            ${formatNgn(order.total)}
+          </td>
+        </tr>
+      </table>
+
+      <div style="
+        border-top:1px solid #222;
+        padding-top:18px;
+        margin-top:18px
+      ">
+
+        <p>
+          <strong>Payment Method:</strong>
+          ${escapeHtml(String(order.payment_method || ""))}
+        </p>
+
+        <p>
+          <strong>Delivery Address:</strong><br>
+          ${escapeHtml(String(order.address || ""))}
+          ${order.city ? `, ${escapeHtml(String(order.city))}` : ""}
+        </p>
+
+      </div>
+
+      ${order.note ? `
+        <div style="
+          margin-top:18px;
+          padding:12px;
+          background:#161616;
+          border-radius:6px
+        ">
+          <strong>Order Note:</strong><br>
+          ${escapeHtml(String(order.note))}
+        </div>
+      ` : ""}
+
       ${receiptHtml}
+
       ${paymentNote}
-      <p style="color:#666;font-size:13px">If you have questions about your order, please contact us.</p>
+
+      <p style="
+        color:#888;
+        font-size:13px;
+        line-height:1.6;
+        margin-top:24px
+      ">
+        Please keep your order reference for future communication.
+        If you have any questions about your order, contact Fantier
+        and include your order reference.
+      </p>
+
     </div>
   `;
 }
+function paymentConfirmationEmailHtml(
+  order: Record<string, unknown>,
+): string {
+  const items =
+    (order.items as Array<Record<string, unknown>>) || [];
 
+  const itemsHtml = items.map((item) => {
+    const name = item.name || "Item";
+    const size = item.size || "One Size";
+    const price = item.price || 0;
+    const customOn = item.customOn === true;
+    const cName = item.cName || "";
+    const cNum = item.cNum || "";
+
+    const customDetail = customOn
+      ? `
+        <div style="color:#A0A0A0;font-size:13px;margin-top:4px">
+          Customisation:
+          ${escapeHtml(String(cName))}
+          ${cNum ? `#${escapeHtml(String(cNum))}` : ""}
+        </div>
+      `
+      : "";
+
+    return `
+      <tr>
+        <td style="padding:12px 8px;border-bottom:1px solid #222">
+          <strong>${escapeHtml(String(name))}</strong>
+          ${customDetail}
+        </td>
+
+        <td style="
+          padding:12px 8px;
+          border-bottom:1px solid #222;
+          color:#A0A0A0;
+          text-align:center
+        ">
+          ${escapeHtml(String(size))}
+        </td>
+
+        <td style="
+          padding:12px 8px;
+          border-bottom:1px solid #222;
+          color:#E8920A;
+          text-align:right;
+          font-weight:700
+        ">
+          ${formatNgn(price)}
+        </td>
+      </tr>
+    `;
+  }).join("");
+
+  const transactionHtml =
+    order.payment_method === "Flutterwave" &&
+    order.flutterwave_transaction_id
+      ? `
+        <p>
+          <strong>Transaction ID:</strong>
+          ${escapeHtml(String(order.flutterwave_transaction_id))}
+        </p>
+      `
+      : "";
+
+  return `
+    <div style="
+      background:#050505;
+      color:#F5F5F5;
+      font-family:Arial,sans-serif;
+      padding:32px;
+      max-width:600px;
+      margin:0 auto;
+      border-radius:12px
+    ">
+
+      <div style="
+        font-size:28px;
+        font-weight:900;
+        letter-spacing:2px;
+        margin-bottom:24px
+      ">
+        FANTIER<span style="color:#E8920A">.</span>
+      </div>
+
+      <h2 style="margin-bottom:10px">
+        Payment Confirmed ✓
+      </h2>
+
+      <p style="color:#A0A0A0;line-height:1.6">
+        Hi ${escapeHtml(String(order.customer_name || "there"))},
+        we've received your payment. Your Fantier order is now confirmed.
+      </p>
+
+      <div style="
+        background:#161616;
+        border-left:3px solid #2ecc71;
+        padding:14px;
+        margin:20px 0
+      ">
+        <strong style="color:#2ecc71">
+          PAYMENT SUCCESSFUL
+        </strong><br>
+        <span style="color:#A0A0A0;font-size:14px">
+          Thank you. Your payment has been confirmed successfully.
+        </span>
+      </div>
+
+      <p style="margin:18px 0">
+        Order Reference:
+        <strong style="color:#E8920A">
+          ${escapeHtml(String(order.ref || ""))}
+        </strong>
+      </p>
+
+      <h3 style="margin:24px 0 10px">
+        Payment Receipt
+      </h3>
+
+      <table style="
+        width:100%;
+        border-collapse:collapse;
+        margin-bottom:20px
+      ">
+        <thead>
+          <tr>
+            <th style="
+              text-align:left;
+              padding:8px;
+              color:#999
+            ">
+              Item
+            </th>
+
+            <th style="
+              text-align:center;
+              padding:8px;
+              color:#999
+            ">
+              Size
+            </th>
+
+            <th style="
+              text-align:right;
+              padding:8px;
+              color:#999
+            ">
+              Price
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          ${itemsHtml}
+        </tbody>
+      </table>
+
+      <table style="
+        width:100%;
+        margin-bottom:20px
+      ">
+        <tr>
+          <td style="padding:5px 0;color:#999">
+            Subtotal
+          </td>
+
+          <td style="padding:5px 0;text-align:right">
+            ${formatNgn(order.subtotal)}
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:5px 0;color:#999">
+            Delivery
+          </td>
+
+          <td style="padding:5px 0;text-align:right">
+            Calculated separately
+          </td>
+        </tr>
+
+        <tr>
+          <td style="
+            padding:12px 0;
+            font-size:17px;
+            font-weight:700
+          ">
+            Total Paid
+          </td>
+
+          <td style="
+            padding:12px 0;
+            text-align:right;
+            color:#E8920A;
+            font-size:17px;
+            font-weight:700
+          ">
+            ${formatNgn(order.total)}
+          </td>
+        </tr>
+      </table>
+
+      <div style="
+        border-top:1px solid #222;
+        padding-top:18px;
+        margin-top:18px
+      ">
+
+        <p>
+          <strong>Payment Status:</strong>
+          <span style="color:#2ecc71;font-weight:700">
+            PAID
+          </span>
+        </p>
+
+        <p>
+          <strong>Payment Method:</strong>
+          ${escapeHtml(String(order.payment_method || ""))}
+        </p>
+
+        ${transactionHtml}
+
+        <p>
+          <strong>Delivery Address:</strong><br>
+          ${escapeHtml(String(order.address || ""))}
+          ${order.city ? `, ${escapeHtml(String(order.city))}` : ""}
+        </p>
+
+      </div>
+
+      <p style="
+        color:#888;
+        font-size:13px;
+        line-height:1.6;
+        margin-top:24px
+      ">
+        This email confirms that payment for your Fantier order has
+        been received. Please keep your order reference for future
+        communication.
+      </p>
+
+    </div>
+  `;
+}
 interface EmailResult {
   status: "sent" | "already_sent" | "skipped" | "failed";
 }
@@ -187,23 +648,45 @@ serve(async (req: Request) => {
   }
 
   if (!isRecord(body) || typeof body.ref !== "string") {
-    return jsonResponse({ error: "Invalid request" }, 400, origin);
-  }
+  return jsonResponse({ error: "Invalid request" }, 400, origin);
+}
 
-  const ref = body.ref.trim();
-  if (ref.length === 0 || ref.length > 100) {
-    return jsonResponse({ error: "Invalid request" }, 400, origin);
-  }
+const ref = body.ref.trim();
 
-  if (!/^JP-[a-f0-9]{10}$/i.test(ref)) {
-    return jsonResponse({ error: "Invalid request" }, 400, origin);
-  }
+if (ref.length === 0 || ref.length > 100) {
+  return jsonResponse({ error: "Invalid request" }, 400, origin);
+}
 
-  const extraKeys = Object.keys(body).filter((k) => k !== "ref");
-  if (extraKeys.length > 0) {
-    return jsonResponse({ error: "Invalid request" }, 400, origin);
-  }
+if (!/^JP-[a-f0-9]{10}$/i.test(ref)) {
+  return jsonResponse({ error: "Invalid request" }, 400, origin);
+}
 
+/*
+ * Email type:
+ * - order_received: original order notification
+ * - payment_confirmed: payment receipt after verified/confirmed payment
+ *
+ * Default keeps existing callers backwards-compatible.
+ */
+const emailType =
+  typeof body.type === "string"
+    ? body.type.trim()
+    : "order_received";
+
+if (
+  emailType !== "order_received" &&
+  emailType !== "payment_confirmed"
+) {
+  return jsonResponse({ error: "Invalid email type" }, 400, origin);
+}
+
+const extraKeys = Object.keys(body).filter(
+  (k) => k !== "ref" && k !== "type",
+);
+
+if (extraKeys.length > 0) {
+  return jsonResponse({ error: "Invalid request" }, 400, origin);
+}
   let order: Record<string, unknown> | null = null;
   try {
     const orderRes = await fetch(
@@ -249,7 +732,90 @@ serve(async (req: Request) => {
     return jsonResponse({ error: "Invalid order" }, 400, origin);
   }
 
-  const adminSentAt = order.admin_email_sent_at as string | null | undefined;
+  /*
+ * Payment confirmation emails are only allowed after the server-side
+ * payment flow has marked the order as Paid.
+ */
+if (emailType === "payment_confirmed") {
+  if (status !== "Paid") {
+    console.error(
+      "Payment confirmation requested for unpaid order:",
+      ref,
+      status,
+    );
+
+    return jsonResponse(
+      { error: "Payment has not been confirmed" },
+      409,
+      origin,
+    );
+  }
+
+  const customerEmail =
+    order.email as string | null | undefined;
+
+  if (!customerEmail || !customerEmail.includes("@")) {
+    return jsonResponse(
+      { error: "Customer email unavailable" },
+      400,
+      origin,
+    );
+  }
+
+  const paymentHtml = paymentConfirmationEmailHtml(order);
+
+  try {
+    const resendRes = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${resendApiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "Fantier <orders@shopfantier.com>",
+        to: customerEmail,
+        subject: `Payment Confirmed - ${ref}`,
+        html: paymentHtml,
+      }),
+    });
+
+    if (!resendRes.ok) {
+      console.error(
+        "Resend payment confirmation failed for ref:",
+        ref,
+        resendRes.status,
+      );
+
+      return jsonResponse(
+        { error: "Unable to send payment confirmation" },
+        502,
+        origin,
+      );
+    }
+
+    return jsonResponse(
+      {
+        payment_confirmation: {
+          status: "sent",
+        },
+      },
+      200,
+      origin,
+    );
+  } catch {
+    console.error(
+      "Resend payment confirmation error for ref:",
+      ref,
+    );
+
+    return jsonResponse(
+      { error: "Unable to send payment confirmation" },
+      502,
+      origin,
+    );
+  }
+}
+const adminSentAt = order.admin_email_sent_at as string | null | undefined;
   const customerSentAt = order.customer_email_sent_at as string | null | undefined;
 
   const customerEmail = order.email as string | null | undefined;
@@ -271,7 +837,7 @@ serve(async (req: Request) => {
         body: JSON.stringify({
           from: "Fantier <orders@shopfantier.com>",
           to: FANTIER_ADMIN_EMAIL,
-          subject: `New Fantier Order — ${ref}`,
+         subject: `New Fantier Order - ${ref}`,
           html: adminHtml,
         }),
       });
@@ -316,7 +882,7 @@ serve(async (req: Request) => {
         body: JSON.stringify({
           from: "Fantier <orders@shopfantier.com>",
           to: customerEmail,
-          subject: `Your Fantier Order — ${ref}`,
+          subject: `Your Fantier Order - ${ref}`,
           html: customerHtml,
         }),
       });

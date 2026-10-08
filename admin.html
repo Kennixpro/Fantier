@@ -468,66 +468,98 @@ async function loadOrders() {
 
 
     ordersContainer.innerHTML =
-      data.map(order => `
+  data.map(order => `
 
-        <div class="order-card">
+    <div class="order-card">
 
-          <div class="order-ref">
-            ${escapeHtml(
-              order.ref || "No reference"
-            )}
-          </div>
+      <div class="order-ref">
+        ${escapeHtml(
+          order.ref || "No reference"
+        )}
+      </div>
+
+      <div class="order-customer">
+        ${escapeHtml(
+          order.customer_name ||
+          "Unknown customer"
+        )}
+      </div>
+
+      <div class="muted">
+        ${escapeHtml(
+          order.phone || ""
+        )}
+      </div>
+
+      <div class="order-total">
+        ₦${Number(
+          order.total || 0
+        ).toLocaleString()}
+      </div>
+
+      <div class="order-status">
+
+        Status:
+
+        <strong>
+          ${escapeHtml(
+            order.status || "Unknown"
+          )}
+        </strong>
+
+      </div>
+
+      <div class="muted">
+
+        Payment:
+
+        ${escapeHtml(
+          order.payment_method ||
+          "Unknown"
+        )}
+
+      </div>
+
+      ${
+        order.payment_method === "Bank Transfer" &&
+        order.status === "Pending"
+          ? `
+            <button
+              type="button"
+              class="confirm-payment-button"
+              data-ref="${escapeHtml(order.ref || "")}"
+              data-amount="${Number(order.total || 0)}"
+              style="margin-top:14px;"
+            >
+              Confirm Payment
+            </button>
+          `
+          : ""
+      }
+
+    </div>
+
+  `).join("");
 
 
-          <div class="order-customer">
-            ${escapeHtml(
-              order.customer_name ||
-              "Unknown customer"
-            )}
-          </div>
+ordersContainer
+  .querySelectorAll(".confirm-payment-button")
+  .forEach(confirmButton => {
 
+    confirmButton.addEventListener(
+      "click",
+      () => {
 
-          <div class="muted">
-            ${escapeHtml(
-              order.phone || ""
-            )}
-          </div>
+        confirmBankPayment(
+          confirmButton.dataset.ref,
+          Number(confirmButton.dataset.amount),
+          confirmButton
+        );
 
+      }
+    );
 
-          <div class="order-total">
-            ₦${Number(
-              order.total || 0
-            ).toLocaleString()}
-          </div>
-
-
-          <div class="order-status">
-
-            Status:
-
-            <strong>
-              ${escapeHtml(
-                order.status || "Unknown"
-              )}
-            </strong>
-
-          </div>
-
-
-          <div class="muted">
-
-            Payment:
-
-            ${escapeHtml(
-              order.payment_method ||
-              "Unknown"
-            )}
-
-          </div>
-
-        </div>
-
-      `).join("");
+  });
 
   }
 
@@ -558,6 +590,101 @@ async function loadOrders() {
 
   }
 
+}
+
+/* ========================================
+   CONFIRM BANK TRANSFER PAYMENT
+======================================== */
+
+async function confirmBankPayment(ref, amount, confirmButton) {
+
+  const confirmed = window.confirm(
+    `Confirm that ₦${Number(amount).toLocaleString()} has been received for order ${ref}?`
+  );
+
+  if (!confirmed) return;
+
+  const sessionRaw =
+    sessionStorage.getItem("fantier_admin_session");
+
+  if (!sessionRaw) {
+    alert("Your admin session has expired. Please sign in again.");
+    location.reload();
+    return;
+  }
+
+  let session;
+
+  try {
+    session = JSON.parse(sessionRaw);
+  } catch {
+    sessionStorage.removeItem("fantier_admin_session");
+    location.reload();
+    return;
+  }
+
+  if (!session.access_token) {
+    sessionStorage.removeItem("fantier_admin_session");
+    location.reload();
+    return;
+  }
+
+  const originalText = confirmButton.textContent;
+
+  confirmButton.disabled = true;
+  confirmButton.textContent = "Confirming...";
+
+  try {
+
+    const response = await fetch(
+      `${SB_URL}/functions/v1/confirm-bank-payment`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SB_KEY,
+          "Authorization": `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({ ref })
+      }
+    );
+
+    let data = {};
+
+    try {
+      data = await response.json();
+    } catch {
+      // No JSON response
+    }
+
+    if (!response.ok) {
+      throw new Error(
+        data.error ||
+        data.message ||
+        `Payment confirmation failed (${response.status}).`
+      );
+    }
+
+    if (data.already_paid) {
+      alert(`Order ${ref} has already been marked as paid.`);
+    } else {
+      alert(`Payment confirmed for ${ref}.`);
+    }
+
+    await loadOrders();
+
+  } catch (error) {
+
+    console.error("Confirm payment error:", error);
+
+    alert(
+      error.message ||
+      "Unable to confirm payment."
+    );
+
+    confirmButton.disabled = false;
+    confirmButton.textContent = originalText;
+  }
 }
 
 

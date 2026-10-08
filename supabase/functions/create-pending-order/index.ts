@@ -19,6 +19,7 @@ type PaymentMethod = "Flutterwave" | "Bank Transfer";
 
 type Product = {
   id: number;
+  name: string;
   price: number;
   category: string;
   sizes: string[] | undefined;
@@ -27,6 +28,7 @@ type Product = {
 
 type ValidatedItem = {
   id: number;
+  name: string;
   size: string;
   customOn: boolean;
   cName?: string;
@@ -125,16 +127,23 @@ function parseReceiptUrl(
 function isProduct(value: unknown): value is Product {
   if (!isRecord(value)) return false;
   return (
-    isPositiveInteger(value.id) &&
-    typeof value.price === "number" &&
-    Number.isSafeInteger(value.price) &&
-    value.price > 0 &&
-    value.price < 10000000 &&
-    typeof value.category === "string" &&
-    SUPPORTED_CATEGORIES.has(value.category) &&
-    (value.sizes === undefined || (Array.isArray(value.sizes) && value.sizes.every(size => typeof size === "string" && size.length > 0))) &&
-    value.in_stock === true
-  );
+  isPositiveInteger(value.id) &&
+  typeof value.name === "string" &&
+  value.name.trim().length > 0 &&
+  value.name.length <= 200 &&
+  typeof value.price === "number" &&
+  Number.isSafeInteger(value.price) &&
+  value.price > 0 &&
+  value.price < 10000000 &&
+  typeof value.category === "string" &&
+  SUPPORTED_CATEGORIES.has(value.category) &&
+  (value.sizes === undefined ||
+    (Array.isArray(value.sizes) &&
+      value.sizes.every(
+        size => typeof size === "string" && size.length > 0
+      ))) &&
+  value.in_stock === true
+);
 }
 
 serve(async (req: Request) => {
@@ -234,7 +243,7 @@ serve(async (req: Request) => {
   try {
     const idList = productIds.join(",");
     const productsRes = await fetch(
-      `${SB_URL}/rest/v1/products?id=in.(${idList})&select=id,price,category,sizes,in_stock,description`,
+      `${SB_URL}/rest/v1/products?id=in.(${idList})&select=id,name,price,category,sizes,in_stock,description`,
       {
         headers: {
           apikey: SUPABASE_SERVICE_ROLE_KEY,
@@ -338,8 +347,9 @@ serve(async (req: Request) => {
       return jsonResponse({ error: "Invalid product price" }, 502, origin);
     }
 
-    validatedItems.push({
+        validatedItems.push({
       id: productId,
+      name: product.name,
       size,
       customOn,
       cName,
@@ -349,8 +359,13 @@ serve(async (req: Request) => {
     });
 
     subtotal += itemPrice * quantity;
+
     if (!Number.isSafeInteger(subtotal)) {
-      return jsonResponse({ error: "Invalid order total" }, 400, origin);
+      return jsonResponse(
+        { error: "Invalid order total" },
+        400,
+        origin
+      );
     }
   }
 
