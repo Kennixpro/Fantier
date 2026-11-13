@@ -4,18 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fantier — Premium Jerseys & Fan Gear Nigeria</title>
-  <meta name="description" content="Shop premium football jerseys, retro kits, kids jerseys and custom floated frames. Fast nationwide delivery within 24–48hrs. Quality guaranteed.">
+  <meta name="description" content="Shop football jerseys, retro kits, kids jerseys and moment frames at Fantier. Orders dispatched in 24–48 hours, with nationwide delivery across Nigeria.">
   <meta name="keywords" content="buy jerseys Nigeria, football jersey Lagos, Super Eagles jersey, retro jerseys Nigeria, kids jerseys Nigeria, Fantier">
   <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="canonical" href="https://shopfantier.com/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://shopfantier.com/">
   <meta property="og:title" content="Fantier — Premium Jerseys & Fan Gear">
-  <meta property="og:description" content="Premium club, retro & kids jerseys. Fast nationwide delivery within 24–48hrs.">
-  <meta property="og:image" content="https://shopfantier.com/fantier_logo.png">
+  <meta property="og:description" content="Football jerseys, retro kits, kids jerseys and moment frames. Orders dispatched in 24–48 hours. Nationwide delivery across Nigeria.">
+  <meta property="og:image" content="https://res.cloudinary.com/ysfcm3ow/image/upload/v1790324064/fantier.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@fantier_ng">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Store","name":"Fantier","url":"https://shopfantier.com","description":"Premium sports jerseys and floated frames in Nigeria","telephone":"+2348185469068","sameAs":["https://www.instagram.com/fantier.ng/","https://www.tiktok.com/@fantier.ng","https://x.com/fantier_ng"]}</script>
+  <meta name="twitter:title" content="Fantier — Premium Jerseys &amp; Fan Gear Nigeria">
+  <meta name="twitter:description" content="Shop football jerseys, retro kits, kids jerseys and moment frames. Nationwide delivery across Nigeria.">
+  <meta property="og:site_name" content="Fantier">
+  <meta property="og:locale" content="en_NG">
+  <meta property="og:image:alt" content="Fantier logo">
+  <meta name="twitter:image:alt" content="Fantier logo">
+  <meta name="theme-color" content="#1F7A3D">
+  <meta name="twitter:image" content="https://res.cloudinary.com/ysfcm3ow/image/upload/v1790324064/fantier.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"OnlineStore","@id":"https://shopfantier.com/#organization","name":"Fantier","url":"https://shopfantier.com/","logo":"https://res.cloudinary.com/ysfcm3ow/image/upload/v1790324064/fantier.png","description":"Football jerseys, retro kits, kids jerseys, moment frames and fan gear in Nigeria.","telephone":"+2348185469068","areaServed":{"@type":"Country","name":"Nigeria"},"sameAs":["https://www.instagram.com/fantier.ng/","https://www.tiktok.com/@fantier.ng","https://x.com/fantier_ng"]}</script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -173,15 +183,32 @@
 
     /* ── TOAST ────────────────────────────── */
     #toast {
-      position:fixed; bottom:2rem; left:50%;
-      transform:translateX(-50%) translateY(120px);
+      position:fixed; top:1.25rem; right:1.25rem; left:auto; bottom:auto;
+      transform:translateY(-120%) scale(.96);
       background:var(--surface); border:1px solid var(--border); color:var(--text);
-      padding:14px 28px; border-radius:50px; font-weight:600;
-      z-index:9999; transition:transform .4s cubic-bezier(.34,1.56,.64,1);
-      pointer-events:none; display:flex; align-items:center; gap:.6rem;
+      padding:.7rem .95rem; border-radius:12px; font-weight:500; font-size:.88rem;
+      max-width:340px; width:auto; box-shadow:0 10px 30px rgba(0,0,0,.35);
+      z-index:9999; transition:transform .32s cubic-bezier(.34,1.56,.64,1), opacity .32s ease, box-shadow .32s ease;
+      pointer-events:none; display:flex; align-items:center; gap:.55rem;
+      line-height:1.35; word-break:break-word; opacity:0;
     }
-    #toast.show { transform:translateX(-50%) translateY(0); }
-    #toast .t-icon { color:var(--accent); font-size:1.1rem; }
+    #toast.show { transform:translateY(0) scale(1); opacity:1; }
+    #toast .t-icon { color:var(--accent); font-size:.95rem; flex-shrink:0; }
+    #toast .t-success { color:var(--success,#2ecc71); }
+    #toast .t-error { color:var(--danger,#e74c3c); }
+    #toast .t-spinner { color:var(--accent); }
+    @media (max-width:640px) {
+      #toast {
+        left: 50%;
+        right: auto;
+        bottom: 1.5rem;
+        top: auto;
+        max-width: calc(100vw - 3rem);
+        width: auto;
+        transform: translateX(-50%) translateY(120%) scale(.96);
+      }
+      #toast.show { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; }
+    }
 
     /* ── HEADER ───────────────────────────── */
     header { position:sticky; top:0; z-index:500; background:rgba(255,255,255,.96); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
@@ -326,6 +353,10 @@
     .oos-overlay span { background:#111; color:#fff; font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:2px; padding:6px 14px; border-radius:4px; border:1px solid #444; }
     .product-card.oos { cursor:default; opacity:.75; }
     .product-card.oos:hover { transform:none; border-color:var(--border); box-shadow:none; }
+    .product-link { color:inherit; text-decoration:none; display:block; }
+    .product-link:focus-visible { outline:2px solid var(--accent); outline-offset:2px; border-radius:2px; }
+    .product-info h3 .product-link { display:inline; }
+    .product-info h3 .product-link:hover { text-decoration:underline; }
     .skeleton-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
     .skeleton-img { height:255px; background:linear-gradient(90deg,#e8e8e8 25%,#f2f2f2 50%,#e8e8e8 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; }
     .skeleton-body { padding:1.25rem; }
@@ -851,6 +882,24 @@ h1,h2,h3,.section-title,.hero-title,.logo{font-family:"Anton SC","Bebas Neue",sa
 .fv5-search input::placeholder{color:#777}
 #cartCount{display:inline-flex;min-width:16px;height:16px;align-items:center;justify-content:center;border:1px solid currentColor;border-radius:50%;font-size:8px;margin-left:4px}
 @media(max-width:1000px){.fv5-search{display:none}}
+
+/* Mobile search button */
+.fv5-search-btn{display:none;background:none;border:0;color:var(--f-ink);font-size:18px;padding:8px;cursor:pointer;line-height:1}
+@media(max-width:1000px){.fv5-search-btn{display:flex}}
+
+/* Mobile search panel */
+.fv5-mobile-search{display:none;position:absolute;top:100%;left:0;right:0;background:var(--f-bg);border-bottom:1px solid var(--f-line);padding:12px var(--f-pad);box-shadow:0 8px 16px rgba(0,0,0,.08);z-index:1100;animation:slideDown .2s ease}
+.fv5-mobile-search.open{display:block}
+.fv5-mobile-search .fv5-search{display:flex;min-width:0;width:100%}
+.fv5-mobile-search .fv5-search input{width:100%;font-size:14px;padding:8px 0}
+.fv5-mobile-search-close{position:absolute;top:12px;right:var(--f-pad);background:none;border:0;color:var(--f-ink);font-size:18px;padding:4px;cursor:pointer;line-height:1}
+
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+
+@media(max-width:620px){
+  .fv5-mobile-search{padding:10px var(--f-pad)}
+  .fv5-mobile-search .fv5-search input{font-size:16px} /* Prevent zoom on iOS */
+}
 </style>
 <style id="fantier-v5-wa-icon">
 .fv5-wa.fv5-wa-icon{width:54px!important;height:54px!important;padding:0!important;display:flex!important;align-items:center!important;justify-content:center!important;border-radius:50%!important;background:#25D366!important;color:#fff!important;font-size:0!important}
@@ -1035,6 +1084,29 @@ h1,h2,h3,.section-title,.hero-title,.logo{font-family:"Anton SC","Bebas Neue",sa
 }
 </style>
 
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F16ST47099"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-F16ST47099');
+  </script>
+  <style id="fantier-product-image-fix">
+  .card-img-wrap > a.product-link {
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+
+  .card-img-wrap > a.product-link img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    padding: 0;
+  }
+</style>
 </head>
 <body>
 
@@ -1056,7 +1128,13 @@ h1,h2,h3,.section-title,.hero-title,.logo{font-family:"Anton SC","Bebas Neue",sa
     <div class="fv5-search hide-mobile"><span>⌕</span><input id="searchInput" type="search" placeholder="Search products" oninput="handleSearch(this.value)" aria-label="Search Fantier products"></div>
     <a class="hide-mobile" href="#shop">Shop</a>
     <a class="hide-mobile" href="#reviews">Reviews</a>
+    <button type="button" class="fv5-search-btn" id="mobileSearchBtn" onclick="toggleMobileSearch()" aria-label="Search" aria-expanded="false"><span class="icon">⌕</span></button>
     <button type="button" onclick="openCart()">Cart <span id="cartCount">0</span></button>
+  </div>
+  <!-- Mobile search panel -->
+  <div class="fv5-mobile-search" id="mobileSearchPanel" aria-hidden="true">
+    <div class="fv5-search"><span>⌕</span><input id="mobileSearchInput" type="search" placeholder="Search products" oninput="handleSearch(this.value)" aria-label="Search Fantier products"></div>
+    <button type="button" class="fv5-mobile-search-close" onclick="closeMobileSearch()" aria-label="Close search">✕</button>
   </div>
 </header>
 <aside class="fv5-drawer" id="fv5Drawer" role="navigation" aria-label="Fantier menu" aria-hidden="true">
@@ -1395,8 +1473,8 @@ h1,h2,h3,.section-title,.hero-title,.logo{font-family:"Anton SC","Bebas Neue",sa
         <button class="qty-btn" onclick="changeQty(1)" aria-label="Increase quantity"><i class="fas fa-plus"></i></button>
       </div>
       <div class="modal-actions">
-        <button class="btn btn-ghost" onclick="addFromModal()"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
-        <button class="btn btn-primary" onclick="addFromModal(true)"><i class="fas fa-bolt"></i> Buy It Now</button>
+        <button class="btn btn-ghost" onclick="addFromModal(false, this)"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+        <button class="btn btn-primary" onclick="addFromModal(true, this)"><i class="fas fa-bolt"></i> Buy It Now</button>
       </div>
     </div>
   </div>
@@ -1606,6 +1684,83 @@ const CAT_LABELS = {all:"All",national:"National",club:"Club Kits",retro:"Retro"
 const BADGE_COLORS = {Hot:"#e84242",New:"#2ecc71",Limited:"#9b59b6","Out of Stock":"#555",Sale:"#E8920A"};
 const JERSEY_CATS = ["national","club","retro","kids"];
 
+/* ═══ SLUG & ROUTING UTILITIES ═══════════════════ */
+const COLLECTION_SLUGS = {
+  national: "national-teams",
+  club: "clubs",
+  retro: "retro-kits",
+  kids: "kids-jerseys",
+  frame: "moment-frames"
+};
+
+function slugify(text) {
+  return String(text || "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function getCollectionSlug(category) {
+  return COLLECTION_SLUGS[category] || slugify(category);
+}
+
+function getProductSlug(product) {
+  const baseSlug = slugify(product.name);
+  const idSuffix = String(product.id).slice(-6);
+  return `${baseSlug}-${idSuffix}`;
+}
+
+function buildProductUrl(product) {
+  const collectionSlug = getCollectionSlug(product.category);
+  const productSlug = getProductSlug(product);
+  return `/collections/${collectionSlug}/products/${productSlug}`;
+}
+
+function parseProductUrl(pathname) {
+  const match = pathname.match(/^\/collections\/([^/]+)\/products\/([^/]+)\/?$/);
+  if (!match) return null;
+  const [, collectionSlug, productSlug] = match;
+  return { collectionSlug, productSlug };
+}
+
+function findProductBySlug(collectionSlug, productSlug) {
+  return products.find(p => {
+    const cSlug = getCollectionSlug(p.category);
+    const pSlug = getProductSlug(p);
+    return cSlug === collectionSlug && pSlug === productSlug;
+  });
+}
+
+function findProductById(id) {
+  return products.find(p => p.id === id);
+}
+
+/* ═══ PRODUCT LINK HANDLER ══════════════════════════════════════ */
+/**
+ * Handles clicks on product links (image/name) to preserve SPA modal behavior
+ * for normal left-clicks while allowing browser default for new-tab/window actions.
+ * @param {MouseEvent} event - The click event
+ * @param {number} productId - The product ID
+ * @returns {boolean} - false to prevent default (handled), true to allow default navigation
+ */
+function handleProductLinkClick(event, productId) {
+  // Allow default browser behavior for:
+  // - Middle click (button 1)
+  // - Ctrl/Cmd + click (new tab)
+  // - Shift + click (new window)
+  // - Right click (context menu - handled by browser)
+  if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey) {
+    return true; // Allow default navigation
+  }
+  // Normal left-click: prevent navigation, open modal instead
+  event.preventDefault();
+  event.stopPropagation();
+  openProductModal(productId);
+  return false;
+}
+
 /* ═══ SECURITY HELPERS ═══════════════════════════ */
 // Escape all user-supplied content before inserting into HTML
 function esc(str) {
@@ -1639,6 +1794,11 @@ async function sbFetch(path, opts={}) {
 let products = [], cart = [], currentProduct = null, modalQty = 1;
 let selectedSize = null;
 let currentFilter = "all", searchQuery = "", customOn = false;
+
+// Helper to detect if we're on a standalone product page
+function isProductPage() {
+  return !!document.querySelector(".product-page");
+}
 
 /* ═══ CACHE ══════════════════════════════════════ */
 const CACHE_KEY = "jp_products_cache";
@@ -1675,12 +1835,14 @@ function mapProducts(data) {
   return data.map(p => ({
     id: p.id, name: p.name, price: p.price,
     category: p.category, img: p.img,
-    desc: p.description, sizes: p.sizes || SIZES_DEF,
+    desc: p.description, sizes: p.sizes || null,
+    dimensions: p.dimensions || null,
     badge: p.badge || null, inStock: p.in_stock !== false
   }));
 }
 
 function showSkeletons(count = 8) {
+  if (isProductPage()) return;
   const grid = document.getElementById("productGrid");
   grid.innerHTML = Array(count).fill(0).map(() => `
     <div class="skeleton-card">
@@ -1702,6 +1864,7 @@ async function loadProducts(silent = false) {
     // Show cached data instantly
     products = cached;
     renderProducts();
+    syncModalWithUrl();
     // Then silently refresh from Supabase in background
     refreshFromSupabase();
   } else {
@@ -1717,6 +1880,7 @@ async function refreshFromSupabase() {
     products = mapProducts(data);
     setCache(products);
     renderProducts();
+    syncModalWithUrl();
   } catch(e) {
     console.error("Supabase load error:", e);
     if (!products.length) {
@@ -1750,6 +1914,7 @@ function getFiltered() {
 }
 
 function renderProducts() {
+  if (isProductPage()) return;
   const grid = document.getElementById("productGrid");
   const filtered = getFiltered();
   document.getElementById("resultsInfo").textContent = `${filtered.length} product${filtered.length!==1?"s":""} found`;
@@ -1761,21 +1926,27 @@ function renderProducts() {
     const badgeColor = p.badge ? (BADGE_COLORS[p.badge] || "var(--accent)") : null;
     const badgeHTML = p.badge ? `<div class="card-badge" style="background:${badgeColor}">${esc(p.badge)}</div>` : "";
     const outOfStock = !p.inStock;
+    const productUrl = buildProductUrl(p);
+    const linkAttrs = `href="${productUrl}" class="product-link" onclick="return handleProductLinkClick(event, ${p.id})"`;
     return `
     <div class="product-card${outOfStock?" oos":""}" onclick="${outOfStock?"":"openProductModal("+p.id+")"}">
       <div class="card-img-wrap">
-        <img src="${esc(p.img)}" alt="${esc(p.name)}" loading="lazy" onerror="this.src='https://via.placeholder.com/600x600/141414/E8920A?text=JP'">
+        <a ${linkAttrs} aria-label="View ${esc(p.name)}">
+          <img src="${esc(p.img)}" alt="${esc(p.name)}" loading="lazy" onerror="this.src='https://via.placeholder.com/600x600/141414/E8920A?text=JP'">
+        </a>
         ${badgeHTML}
         ${outOfStock?`<div class="oos-overlay"><span>Out of Stock</span></div>`:""}
       </div>
       <div class="product-info">
         <div class="product-category">${esc(CAT_LABELS[p.category]||p.category)}</div>
-        <h3>${esc(p.name)}</h3>
+        <h3><a ${linkAttrs}>${esc(p.name)}</a></h3>
         <div class="card-footer">
           <div class="price" style="${outOfStock?"opacity:.4":""}">₦${Number(safePrice(p.price)).toLocaleString()}</div>
           ${outOfStock
             ? `<span style="font-size:.72rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.5px">Unavailable</span>`
-            : `<button class="quick-add" onclick="event.stopPropagation();openProductModal(${p.id})" title="Select Size"><i class="fas fa-plus"></i></button>`
+            : p.category === "frame"
+              ? `<button class="quick-add" onclick="event.stopPropagation();addFromCard(${p.id}, this)" title="Add to Cart"><i class="fas fa-plus"></i></button>`
+              : `<button class="quick-add" onclick="event.stopPropagation();openProductModal(${p.id})" title="Select Size"><i class="fas fa-plus"></i></button>`
           }
         </div>
       </div>
@@ -1789,7 +1960,10 @@ function filterCategory(cat, btn) {
   // Clear search when switching categories so user isn't confused by 0 results
   searchQuery = "";
   hasScrolledForSearch = false;
-  document.getElementById("searchInput").value = "";
+  const desktopInput = document.getElementById("searchInput");
+  const mobileInput = document.getElementById("mobileSearchInput");
+  if (desktopInput) desktopInput.value = "";
+  if (mobileInput) mobileInput.value = "";
   document.querySelectorAll(".filter-btn").forEach(b => {
     b.classList.remove("active");
     b.setAttribute("aria-pressed", "false");
@@ -1814,14 +1988,117 @@ function handleSearch(val) {
 function clearSearch() {
   searchQuery = "";
   hasScrolledForSearch = false;
-  const input = document.getElementById("searchInput");
-  if (input) input.value = "";
+  const desktopInput = document.getElementById("searchInput");
+  const mobileInput = document.getElementById("mobileSearchInput");
+  if (desktopInput) desktopInput.value = "";
+  if (mobileInput) mobileInput.value = "";
   renderProducts();
 }
 function scrollToShop() { document.getElementById("shop").scrollIntoView({behavior:"smooth"}); }
 
+/* ═══ PRODUCT DEEP LINKS (shareable #product=<id>) ═════════════════ */
+const SITE_TITLE  = "Fantier — Premium Jerseys & Fan Gear Nigeria";
+const SITE_DESC   = "Shop football jerseys, retro kits, kids jerseys and moment frames at Fantier. Orders dispatched in 24–48 hours, with nationwide delivery across Nigeria.";
+const SITE_OG_TITLE = "Fantier — Premium Jerseys & Fan Gear";
+const SITE_OG_DESC  = "Football jerseys, retro kits, kids jerseys and moment frames. Orders dispatched in 24–48 hours. Nationwide delivery across Nigeria.";
+const SITE_TW_TITLE = "Fantier — Premium Jerseys & Fan Gear Nigeria";
+const SITE_TW_DESC  = "Shop football jerseys, retro kits, kids jerseys and moment frames. Nationwide delivery across Nigeria.";
+
+function parseProductHash() {
+  const m = (location.hash || "").match(/#product=(\d+)/);
+  return m ? Number(m[1]) : null;
+}
+
+function parseProductPath() {
+  const parsed = parseProductUrl(location.pathname);
+  if (!parsed) return null;
+  return findProductBySlug(parsed.collectionSlug, parsed.productSlug);
+}
+
+function pushProductUrl(product) {
+  try {
+    if (product) {
+      const url = buildProductUrl(product);
+      history.pushState({ productId: product.id }, "", url);
+      updateCanonicalUrl(url);
+    } else {
+      history.replaceState(null, "", "/" + location.search);
+      restoreCanonicalUrl();
+    }
+  } catch (e) { /* history API unavailable — ignore */ }
+}
+
+function updateCanonicalUrl(url) {
+  let el = document.head.querySelector('link[rel="canonical"]');
+  if (!el) {
+    el = document.createElement("link");
+    el.setAttribute("rel", "canonical");
+    document.head.appendChild(el);
+  }
+  el.setAttribute("href", location.origin + url);
+}
+
+function restoreCanonicalUrl() {
+  const el = document.head.querySelector('link[rel="canonical"]');
+  if (el) el.setAttribute("href", "https://shopfantier.com/");
+}
+
+function setMetaContent(attr, value, content) {
+  let el = document.head.querySelector('meta[' + attr + '="' + value + '"]');
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, value);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
+}
+
+function applyProductMeta(p) {
+  const cleanName = String(p.name || "").replace(/\s+/g, " ").trim();
+  const cleanDesc = String(p.desc || "").replace(/\s+/g, " ").trim();
+  const title = cleanName + " | Fantier";
+  const desc = (cleanDesc || "Premium quality product from Fantier.") + " Orders dispatched in 24–48 hours across Nigeria.";
+  document.title = title;
+  setMetaContent("name", "description", desc);
+  setMetaContent("property", "og:title", title);
+  setMetaContent("property", "og:description", desc);
+  setMetaContent("name", "twitter:title", title);
+  setMetaContent("name", "twitter:description", desc);
+}
+
+function restoreSiteMeta() {
+  document.title = SITE_TITLE;
+  setMetaContent("name", "description", SITE_DESC);
+  setMetaContent("property", "og:title", SITE_OG_TITLE);
+  setMetaContent("property", "og:description", SITE_OG_DESC);
+  setMetaContent("name", "twitter:title", SITE_TW_TITLE);
+  setMetaContent("name", "twitter:description", SITE_TW_DESC);
+}
+
+function syncModalWithUrl() {
+  // Check path-based URL first
+  const pathProduct = parseProductPath();
+  const hashId = parseProductHash();
+  const open = document.getElementById("productModal").classList.contains("active");
+
+  if (pathProduct && !open) {
+    openProductModal(pathProduct.id, { updateHash: false });
+  } else if (hashId && !open && !pathProduct) {
+    // Backward compatibility: hash-based URL
+    if (products.some(p => p.id === hashId)) {
+      openProductModal(hashId, { updateHash: false });
+    } else {
+      pushProductUrl(null);
+    }
+  } else if (!pathProduct && !hashId && open) {
+    closeProductModal({ updateHash: false });
+  }
+}
+window.addEventListener("popstate", syncModalWithUrl);
+window.addEventListener("hashchange", syncModalWithUrl);
+
 /* ═══ PRODUCT MODAL ══════════════════════════════ */
-function openProductModal(id) {
+function openProductModal(id, opts = {}) {
   const p = products.find(x => x.id === id); if (!p) return;
   currentProduct = p; modalQty = 1; selectedSize = null; customOn = false;
 
@@ -1833,8 +2110,37 @@ function openProductModal(id) {
   document.getElementById("modalPrice").textContent = "₦" + Number(safePrice(p.price)).toLocaleString();
   document.getElementById("modalQty").textContent = "1";
 
-  const sizes = p.sizes && p.sizes.length ? p.sizes : SIZES_DEF;
-  document.getElementById("sizeGrid").innerHTML = sizes.map(s => `<button class="size-btn" onclick="selectSize('${s}',this)">${s}</button>`).join("");
+  const isFrame = p.category === "frame";
+  const sizeGrid = document.getElementById("sizeGrid");
+  const sizeLabel = document.querySelector("#productModal .size-label");
+
+  if (isFrame) {
+    // Frames have no jersey sizes — show actual dimensions instead
+    sizeLabel.textContent = "FRAME SIZE";
+    sizeLabel.style.display = "block";
+    sizeGrid.innerHTML = p.dimensions
+      ? `<div class="frame-dimensions" style="font-size:.9rem;font-weight:600;color:var(--accent);padding:.5rem 0">${esc(p.dimensions)}</div>`
+      : `<div class="frame-dimensions" style="font-size:.9rem;color:var(--muted);padding:.5rem 0">One Size</div>`;
+    selectedSize = p.dimensions || "One Size";
+  } else {
+    sizeLabel.textContent = "SELECT SIZE";
+    sizeLabel.style.display = "block";
+    const availableSizes = Array.isArray(p.sizes) ? p.sizes.filter(s => typeof s === "string" && s.trim()) : [];
+    if (availableSizes.length) {
+      sizeGrid.replaceChildren();
+      availableSizes.forEach(size => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "size-btn";
+        button.textContent = size;
+        button.addEventListener("click", () => selectSize(size, button));
+        sizeGrid.appendChild(button);
+      });
+    } else {
+      // No sizes configured for this jersey — do not invent sizes or offer 4XL
+      sizeGrid.innerHTML = `<div class="size-unavailable" style="font-size:.82rem;color:var(--muted);padding:.4rem 0">Sizes currently unavailable — contact us</div>`;
+    }
+  }
 
   // Show customization only for jersey categories
   const isJersey = JERSEY_CATS.includes(p.category);
@@ -1847,6 +2153,12 @@ function openProductModal(id) {
   document.getElementById("productModal").classList.add("active");
   document.getElementById("overlay").classList.add("active");
   document.body.style.overflow = "hidden";
+  if (opts.updateHash !== false) pushProductUrl(p);
+  applyProductMeta(p);
+  // Update OG/Twitter URL to canonical product URL
+  const productUrl = buildProductUrl(p);
+  setMetaContent("property", "og:url", location.origin + productUrl);
+  setMetaContent("name", "twitter:url", location.origin + productUrl);
   // Move focus into modal for accessibility
   setTimeout(() => {
     const close = document.querySelector("#productModal .modal-close");
@@ -1854,12 +2166,18 @@ function openProductModal(id) {
   }, 100);
 }
 
-function closeProductModal() {
+function closeProductModal(opts = {}) {
   document.getElementById("productModal").classList.remove("active");
+  // Reset size label visibility so the next modal (jersey or frame) renders correctly
+  const sizeLabel = document.querySelector("#productModal .size-label");
+  sizeLabel.textContent = "SELECT SIZE";
+  sizeLabel.style.display = "block";
   if (!document.getElementById("checkoutModal").classList.contains("active")) {
     document.getElementById("overlay").classList.remove("active");
     document.body.style.overflow = "";
   }
+  if (opts.updateHash !== false) pushProductUrl(null);
+  restoreSiteMeta();
 }
 
 function selectSize(size, btn) {
@@ -1879,7 +2197,7 @@ function toggleCustom() {
   document.getElementById("customInputs").style.display = customOn ? "grid" : "none";
 }
 
-function addFromModal(checkoutNow = false) {
+function addFromModal(checkoutNow = false, btn = null) {
   if (!selectedSize && currentProduct.category !== "frame") { toast("Please select a size first","fa-exclamation-circle"); return; }
   const cN = document.getElementById("cName").value.trim();
   const cNm = document.getElementById("cNum").value.trim();
@@ -1896,13 +2214,85 @@ function addFromModal(checkoutNow = false) {
   if (checkoutNow) {
     openCheckout();
   } else {
+    // Mobile: inline button feedback instead of toast
+    const isMobile = window.matchMedia('(max-width: 640px)').matches;
+    if (isMobile && btn) {
+      const originalHTML = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-check"></i> Added to Cart';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.innerHTML = originalHTML;
+        btn.disabled = false;
+      }, 1500);
+    } else {
+      toast(`${freshProduct.name} added to cart!`, "fa-shopping-bag");
+    }
+  }
+}
+
+/* ═══ QUICK ADD FROM PRODUCT CARD (mobile frames) ═════════════════ */
+function addFromCard(productId, btn) {
+  const p = products.find(x => x.id === productId);
+  if (!p) return;
+  // Only allow direct add for frames (no size selection needed)
+  if (p.category !== "frame") {
+    openProductModal(productId);
+    return;
+  }
+  // Mobile: inline feedback on the card button
+  const isMobile = window.matchMedia('(max-width: 640px)').matches;
+  const freshProduct = products.find(x => x.id === productId);
+  if (!freshProduct) { toast("Product not found. Please refresh.","fa-exclamation-circle"); return; }
+  const basePrice = safePrice(freshProduct.price);
+  cart.push({...freshProduct, size:"One Size", customOn:false, cName:"", cNum:"", price:basePrice, cartId:Date.now()});
+  saveCart(); updateCartUI();
+  if (isMobile && btn) {
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-check"></i>';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.innerHTML = originalHTML;
+      btn.disabled = false;
+    }, 1500);
+  } else {
     toast(`${freshProduct.name} added to cart!`, "fa-shopping-bag");
   }
 }
 
+function productDeepLink() {
+  if (!currentProduct) return "";
+  const base = (location.protocol === "http:" || location.protocol === "https:")
+    ? location.origin
+    : "https://shopfantier.com";
+  return base + buildProductUrl(currentProduct);
+}
+
+function copyProductLink() {
+  if (!currentProduct) return;
+  const url = productDeepLink();
+  const done = () => toast("Product link copied", "fa-link");
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(url).then(done).catch(() => fallbackCopyText(url, done));
+  } else {
+    fallbackCopyText(url, done);
+  }
+}
+
+function fallbackCopyText(text, done) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand("copy"); done(); }
+  catch (e) { toast("Copy failed — copy the URL from the address bar", "fa-exclamation-circle"); }
+  document.body.removeChild(ta);
+}
+
 function whatsappProduct() {
   if (!currentProduct) return;
-  const msg = `Hi Fantier! I'd like to order:\n*${currentProduct.name}*\nSize: ${selectedSize||"Not selected"}\nPrice: ₦${Number(currentProduct.price).toLocaleString()}\n\nPlease confirm availability.`;
+  const msg = `Hi Fantier! I'd like to order:\n*${currentProduct.name}*\nSize: ${selectedSize||"Not selected"}\nPrice: ₦${Number(currentProduct.price).toLocaleString()}\nLink: ${productDeepLink()}\n\nPlease confirm availability.`;
   window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`,"_blank");
 }
 
@@ -1993,6 +2383,40 @@ function openReturnsModal(e) {
   setTimeout(() => { m.focus({preventScroll: true}); }, 50);
 }
 
+/* ═══ MOBILE SEARCH ═════════════════════════════════ */
+function toggleMobileSearch() {
+  const panel = document.getElementById("mobileSearchPanel");
+  const btn = document.getElementById("mobileSearchBtn");
+  const input = document.getElementById("mobileSearchInput");
+  const isOpen = panel.classList.toggle("open");
+  btn.setAttribute("aria-expanded", isOpen);
+  panel.setAttribute("aria-hidden", !isOpen);
+  if (isOpen) {
+    setTimeout(() => input.focus({preventScroll: true}), 50);
+    // Close drawer if open
+    if (fv5DrawerEl && fv5DrawerEl.classList.contains("open")) closeFantierDrawer();
+  }
+}
+
+function closeMobileSearch() {
+  const panel = document.getElementById("mobileSearchPanel");
+  const btn = document.getElementById("mobileSearchBtn");
+  const input = document.getElementById("mobileSearchInput");
+  panel.classList.remove("open");
+  btn.setAttribute("aria-expanded", "false");
+  panel.setAttribute("aria-hidden", "true");
+  input.value = "";
+  input.blur();
+  // Clear search results
+  if (searchQuery) {
+    searchQuery = "";
+    hasScrolledForSearch = false;
+    const desktopInput = document.getElementById("searchInput");
+    if (desktopInput) desktopInput.value = "";
+    renderProducts();
+  }
+}
+
 /* ═══ FANTIER DRAWER CONTROLLER ══════════════════════ */
 const fv5DrawerEl = document.getElementById("fv5Drawer");
 const fv5DrawerBackdrop = document.getElementById("fv5DrawerBackdrop");
@@ -2028,6 +2452,10 @@ document.addEventListener("click", function(e) {
 });
 document.addEventListener("keydown", function(e) {
   if (e.key === "Escape" && fv5DrawerEl && fv5DrawerEl.classList.contains("open")) { closeFantierDrawer(); }
+  if (e.key === "Escape") {
+    const panel = document.getElementById("mobileSearchPanel");
+    if (panel && panel.classList.contains("open")) { closeMobileSearch(); }
+  }
 });
 
 (function() {
@@ -2342,7 +2770,7 @@ function payWithFlutterwave() {
         customizations: {
           title: "Fantier",
           description: cart.length === 1 ? cart[0].name : `${cart.length} items`,
-          logo: "https://shopfantier.com/fantier_logo.png",
+          logo: "https://res.cloudinary.com/ysfcm3ow/image/upload/v1790324064/fantier.png",
         },
         callback: async function(response) {
           if (attemptFinished || verificationInProgress) return;
@@ -2426,11 +2854,19 @@ function closeAll() { closeProductModal(); closeCart(); closeCheckout(); }
 /* ═══ TOAST ══════════════════════════════════════ */
 function toast(msg, icon="fa-check-circle") {
   const el=document.getElementById("toast");
+  const iconEl=el.querySelector(".t-icon i");
   document.getElementById("toastMsg").textContent=msg;
-  el.querySelector(".t-icon i").className="fas "+icon;
+  iconEl.className="fas "+icon;
+
+  // Success / error / spinner styling
+  el.classList.remove("t-success","t-error","t-spinner");
+  if (icon==="fa-spinner") el.classList.add("t-spinner");
+  else if (icon==="fa-exclamation-circle"||icon==="fa-exclamation-triangle") el.classList.add("t-error");
+  else el.classList.add("t-success");
+
   el.classList.add("show");
   clearTimeout(el._t);
-  el._t=setTimeout(()=>el.classList.remove("show"),3000);
+  el._t=setTimeout(()=>el.classList.remove("show"),2000);
 }
 
 
@@ -2478,6 +2914,8 @@ document.addEventListener("visibilitychange", () => {
 loadCart();
 loadProducts();
 setTimeout(initScrollReveal, 100);
+// Initial URL sync for clean product URLs and legacy hash links
+setTimeout(syncModalWithUrl, 150);
 </script>
 
 <script src="https://checkout.flutterwave.com/v3.js"></script>

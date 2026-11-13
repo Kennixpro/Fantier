@@ -1,0 +1,3 @@
+[build]
+  command = "node generate-sitemap.mjs && node validate-sitemap.mjs && node generate-all-products.mjs --run && node prepare-dist.mjs"
+  publish = "dist"

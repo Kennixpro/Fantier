@@ -1,0 +1,9 @@
+# Netlify Redirects for Fantier
+# Clean product URLs - rewrite to index.html for SPA routing
+/collections/*  /index.html   200
+
+# Legacy hash-based product links still work via client-side routing
+# No server-side redirect needed for #product=ID as hash is not sent to server
+
+# Ensure all other routes fall back to index.html for client-side routing
+/*  /index.html   200
